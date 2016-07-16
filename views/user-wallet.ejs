@@ -8,11 +8,21 @@
   <section class="container me-top-box text-center">
     <img src="/public/images/wallet-icon.png" >
     <p class="mt-10 cl-drak-grey font-lg "><span class="font-md">余额</span>￥233</p>
+    <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default mt-10" id="wallet-mode-btn">明细</a>
   </section>
-  <section class="container mb-80">
-    <% events.forEach(function(event) { %>
-      <% include partials/event-card %>
-    <% }) %>
+  <section class="container mb-60">
+    <div id="activeEventList">
+      <% events.forEach(function(event) { %>
+        <% include partials/event-card %>
+      <% }) %>
+      <a class="text-center cl-drak-grey mt-10" style="display:block" href="/all-events">更多任务，更多赏金</a>
+    </div>
+    <div id="cashFlowList" class="bg-white" style="padding: 20px; display:none">
+      <% cashFlows.forEach(function(item) { %>
+        <% include partials/cash-flow %>
+      <% }) %>
+      <div class="text-center cl-grey mt-30 font-sm">仅可查询近1月记录</div>
+    </div>
   </section>
 
   <div class="nav">
@@ -25,5 +35,5 @@
 <script src="/public/js/zepto.min.js"></script>
 <% include partials/register-wechat-api %>
 <% include partials/hide-wechat-menu %>
-<script src="/public/js/red-packet.js"></script>
+<script src="/public/js/user-wallet.js"></script>
 </html>

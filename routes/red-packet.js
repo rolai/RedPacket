@@ -137,5 +137,35 @@ router.get('/preview/:redPacketId', function(req, res, next) {
 });
 
 
+router.get('/active/:page/:count', function(req, res, next) {
+    var page = req.params.page || 0;
+    var count = req.params.count || 20;
+
+    return utils.fetchActiveRedPacket(page, count)
+        .then(function(redPackets) {
+            res.json({result: redPackets});
+        });
+});
+
+router.get('/status/:redPacketId', function(req, res, next) {
+    var redPacketId = req.params.redPacketId;
+    var currentUser = req.currentUser;
+    return utils.fetchRedPacket(redPacketId)
+        .then(function(redPacket) {
+            if (!redPacket || redPacket.status == constants.RED_PACKET_STATUS.REMOVED) {
+              res.render('removed-red-packet');
+            } else {
+              return utils.fetchRedPacketCashFlow(redPacketId, 0, 60)
+                .then(function(cashFlows){
+                  res.render('red-packet-status', {
+                    redPacket: redPacket,
+                    cashFlows: cashFlows,
+                    signature: req.signature,
+                    domain: req.domain
+                  });
+                });
+            }
+        });
+});
 
 module.exports = router;

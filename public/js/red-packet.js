@@ -6,6 +6,15 @@ function getRedPacketIdFromUrl(url) {
   return res !== null ? res[1] : "";
 }
 
+function resetRedPacketPosition() {
+  var height = $(window).height();
+  var redPacketHeight = $("#rp-overview").height();
+  var redPacketPositionY = (height - redPacketHeight) / 2 - 20;
+  $("#rp-overview").css('margin-top', redPacketPositionY + 'px');
+}
+
+resetRedPacketPosition ();
+
 function openRedPacket(money, redPacket) {
   var luckMoney = money / 100.0;
   var message = "已有" + (redPacket.count - redPacket.leftCount) + "人获得  丨  赏金剩余" + (redPacket.leftMoney / 100.0) + "元"
@@ -19,7 +28,7 @@ $('.open-rp-btn').on('click', function(e) {
     },
     function(response){
       var json = JSON.parse(response).result;
-      if(json.result == true) {
+      if(json.result === true) {
         openRedPacket(json.money, json.redPacket);
         $('#rp-overview').hide();
         $('#rp-details').show();
@@ -28,4 +37,4 @@ $('.open-rp-btn').on('click', function(e) {
       }
     }
   );
-})
+});

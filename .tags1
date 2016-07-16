@@ -1,0 +1,60 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AV	/Users/lairf/MyProject/RedPacket/utils.js	/^var AV = require('.\/av.js');$/;"	variable	line:1
+request	/Users/lairf/MyProject/RedPacket/utils.js	/^var request = require('request');$/;"	variable	line:2
+constants	/Users/lairf/MyProject/RedPacket/utils.js	/^var constants = require('.\/constants');$/;"	variable	line:4
+_	/Users/lairf/MyProject/RedPacket/utils.js	/^var _ = require('underscore');$/;"	variable	line:5
+moment	/Users/lairf/MyProject/RedPacket/utils.js	/^var moment = require('moment');$/;"	variable	line:6
+requestToJSONAsPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    requestToJSONAsPromise: function(url) {$/;"	function	line:11
+utils.requestToJSONAsPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^var utils = {$/;"	method	line:10
+requestToPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    requestToPromise: function(options) {$/;"	function	line:18
+utils.requestToPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:16
+request	/Users/lairf/MyProject/RedPacket/utils.js	/^            request(options, function(err, res, body) {$/;"	function	line:20
+user	/Users/lairf/MyProject/RedPacket/utils.js	/^    user: function(userId) {$/;"	function	line:33
+utils.user	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:31
+file	/Users/lairf/MyProject/RedPacket/utils.js	/^    file: function(fileId) {$/;"	function	line:37
+utils.file	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:35
+redPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    redPacket: function(redPacketId) {$/;"	function	line:41
+utils.redPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:39
+fetchUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUser: function(userId) {$/;"	function	line:45
+utils.fetchUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:43
+userSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    userSummary: function(user) {$/;"	function	line:52
+utils.userSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:50
+utils.userSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:53
+findOrCreateUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    findOrCreateUser: function(userInfo) {$/;"	function	line:68
+utils.findOrCreateUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:66
+fetchRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchRedPacket: function(redPacketId) {$/;"	function	line:86
+utils.fetchRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:84
+redPacketSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    redPacketSummary: function(redPacket) {$/;"	function	line:100
+utils.redPacketSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:98
+utils.redPacketSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:101
+openRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    openRedPacket: function(user, redPacketId) {$/;"	function	line:134
+utils.openRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:121
+luckMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    luckMoney: function(totalMoney, count, leftMoney, leftCount) {$/;"	function	line:201
+utils.luckMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:199
+withdrawMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    withdrawMoney: function(user, money) {$/;"	function	line:212
+utils.withdrawMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:210
+addCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    addCashFlow: function(user, cash, type, info, recordId) {$/;"	function	line:242
+utils.addCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:240
+updateOrCreateRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    updateOrCreateRedPacket: function(user, data) {$/;"	function	line:255
+utils.updateOrCreateRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:251
+utils.updateOrCreateRedPacket.result.result	/Users/lairf/MyProject/RedPacket/utils.js	/^        var result = {$/;"	property	line:256
+paidForRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    paidForRedPacket: function(user, redPacket) {$/;"	function	line:309
+utils.paidForRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:307
+fetchUserCreatedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUserCreatedRedPacket: function(user) {$/;"	function	line:319
+utils.fetchUserCreatedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:317
+fetchUserOpenedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUserOpenedRedPacket: function(user) {$/;"	function	line:333
+utils.fetchUserOpenedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:331
+fetchActiveRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchActiveRedPacket: function(page, count) {$/;"	function	line:353
+utils.fetchActiveRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:351
+cashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    cashFlowSummary: function(cashFlow) {$/;"	function	line:371
+utils.cashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:369
+utils.cashFlowSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:372
+fetchUserCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUserCashFlow: function(user, page, count) {$/;"	function	line:384
+utils.fetchUserCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:382
+fetchRedPacketCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchRedPacketCashFlow: function(redPacketId, page, count) {$/;"	function	line:401
+utils.fetchRedPacketCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:399

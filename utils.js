@@ -3,6 +3,9 @@ var request = require('request');
 const assert = require('assert');
 var constants = require('./constants');
 var _ = require('underscore');
+var moment = require('moment');
+
+moment.locale('zh-cn');
 
 var utils = {
     requestToJSONAsPromise: function(url) {
@@ -111,7 +114,8 @@ var utils = {
             publisherName: redPacket.get('publisherName'),
             title: redPacket.get('title'),
             invalidDate: redPacket.get('invalidDate').format("yyyy-MM-dd"),
-            createdAt: redPacket.getCreatedAt().format("yyyy-MM-dd hh:mm:ss")
+            //createdAt: redPacket.getCreatedAt().format("yyyy-MM-dd hh:mm:ss")
+            createdAt: moment(redPacket.getCreatedAt().getTime()).fromNow()
         };
         return obj;
     },
@@ -173,7 +177,8 @@ var utils = {
                                     return userRedPacket.save();
                                 })
                                 .then(function(userRedPacket) {
-                                    return utils.addCashFlow(user, result.money, constants.CASH_FLOW.INCOME, userRedPacket.id);
+                                    var info = "【" + redPacket.get('publisherName') + "】的活动红包";
+                                    return utils.addCashFlow(user, result.money, constants.CASH_FLOW.INCOME, info, userRedPacket.id);
                                 })
                                 .then(function() {
                                     user.increment('earnedMoney', result.money);
@@ -227,17 +232,19 @@ var utils = {
                         })
                         .then(function() {
                             //record it
-                            return utils.addCashFlow(user, -money, constants.CASH_FLOW.WITHDRAW, payback.id);
+                            var info = "提现至微信零钱";
+                            return utils.addCashFlow(user, -money, constants.CASH_FLOW.WITHDRAW, info, payback.id);
                         });
                 }
             });
     },
 
-    addCashFlow: function(user, cash, type, recordId) {
+    addCashFlow: function(user, cash, type, info, recordId) {
         var flow = AV.Object.new('CashFlow');
         flow.set('user', user);
         flow.set('cash', cash);
         flow.set('type', type);
+        flow.set('info', info);
         flow.set('recordId', recordId);
 
         return flow.save();
@@ -300,7 +307,8 @@ var utils = {
     },
 
     paidForRedPacket: function(user, redPacket) {
-        return utils.addCashFlow(user, -totalMoney, constants.CASH_FLOW.SPEND, redPacket.id)
+        var info = "发红包：" +  redPacket.get('title');
+        return utils.addCashFlow(user, -totalMoney, constants.CASH_FLOW.SPEND, info, redPacket.id)
             .then(function() {
                 user.increment('availableMoney', -totalMoney);
                 user.increment('paidMoney', totalMoney);
@@ -342,17 +350,80 @@ var utils = {
             });
     },
 
-    fetchAllActiveRedPacket: function() {
-        var date = new Date();
+    fetchActiveRedPacket: function(page, count) {
+        page = page || 0;
+        count = count || 20;
+        if(count > 100) count = 100;
+
         var query = new AV.Query('RedPacket');
         query.include('creator');
         query.equalTo('status', constants.RED_PACKET_STATUS.RUNNING);
+        query.descending('createdAt');
+        query.skip(page * count);
+        query.limit(count);
         return query.find()
             .then(function(rows) {
                 var redPackets = _.map(rows, utils.redPacketSummary);
                 return new AV.Promise.as(redPackets);
             });
     },
+
+    cashFlowSummary: function(cashFlow) {
+        var obj = {
+            id: cashFlow.id,
+            cash: cashFlow.get('cash'),
+            type: cashFlow.get('type'),
+            info: cashFlow.get('info'),
+            createdAt: cashFlow.getCreatedAt().format("yyyy-MM-dd")
+        };
+
+        if(obj.type == constants.CASH_FLOW.WITHDRAW) obj.info = '提现至微信零钱';
+        return obj;
+    },
+
+    fetchUserCashFlow: function(user, page, count) {
+        page = page || 0;
+        count = count || 20;
+        if(count > 100) count = 100;
+        var query = new AV.Query('CashFlow');
+        query.equalTo('user', user);
+        query.containedIn('type', [constants.CASH_FLOW.INCOME, constants.CASH_FLOW.WITHDRAW]);
+        query.descending('createdAt');
+        query.skip(page * count);
+        query.limit(count);
+        return query.find()
+            .then(function(rows){
+                var cashFlows = _.map(rows, utils.cashFlowSummary);
+                return new AV.Promise.as(cashFlows);
+            });
+    },
+
+    fetchRedPacketCashFlow: function(redPacketId, page, count) {
+        page = page || 0;
+        count = count || 20;
+        if(count > 100) count = 100;
+
+        var query = new AV.Query('UserRedPacket');
+        query.include('user');
+        query.equalTo('redPacket', utils.redPacket(redPacketId));
+        query.descending('createdAt');
+        query.skip(page * count);
+        query.limit(count);
+        return query.find()
+            .then(function(rows){
+                var cashFlows = _.map(rows, function(row){
+                    var obj = {
+                      cash: row.get('money'),
+                      createdAt: row.getCreatedAt().format("yyyy-MM-dd")
+                    };
+                    var userName = row.get('user').get('nickname');
+                    obj.info = "*" + userName.substr(1) + "领取了红包";
+                    return obj;
+                  });
+                return new AV.Promise.as(cashFlows);
+            }, function(err) {console.log(err);});
+    },
+
 };
 
 module.exports = utils;

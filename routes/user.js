@@ -32,14 +32,21 @@ router.get('/me', function(req, res, next) {
 });
 
 router.get('/wallet', function(req, res, next) {
-  utils.fetchUserCreatedRedPacket(req.currentUser)
-    .then(function(redPackets){
-      res.render('user-wallet', {
-        user: utils.userSummary(req.currentUser),
-        events: redPackets,
-        signature: req.signature,
-        domain: req.domain
-      });
+  var redPackets;
+  utils.fetchActiveRedPacket(0, 5)
+    .then(function(result){
+      redPackets = result;
+      return utils.fetchUserCashFlow(req.currentUser, 0, 60);
+    })
+    .then(function(cashFlows){
+      console.log(cashFlows);
+      return res.render('user-wallet', {
+          user: utils.userSummary(req.currentUser),
+          events: redPackets,
+          cashFlows: cashFlows,
+          signature: req.signature,
+          domain: req.domain
+        });
     });
 });
 

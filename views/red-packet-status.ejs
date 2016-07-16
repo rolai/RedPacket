@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<% include partials/header %>
+<title>红包</title>
+</head>
+<body class="bg-white">
+  <section class="event-container mb-60">
+    <div class="event-details">
+      <div class="font-lg mt-10">【活动】<%= redPacket.title %></div>
+      <div class="font-sm cl-yellow mt-5 pb-10 under-line">下架时间： <%= redPacket.invalidDate %></div>
+      <div class="font-md mt-20">
+        <span class="event-price-tag">￥<%= redPacket.totalMoney / 100.0 %></span>
+        <span>已有<%= redPacket.count - redPacket.leftCount %>人获得  丨  赏金剩余<%= redPacket.leftMoney/100.0 %>元</span>
+      </div>
+    </div>
+    <div class="event-cash mt-40">
+      <% cashFlows.forEach(function(item) { %>
+        <% include partials/cash-flow %>
+      <% }) %>
+    </div>
+  </section>
+
+  <div class="nav">
+    <div class="rp-bottom-btns">
+      <a class="rp-bottom-btn rp-bottom-left-btn" href="/all-events">全部活动</a>
+      <a class="rp-bottom-btn rp-bottom-right-btn" href="/user/me">我的账户</a>
+    </div>
+  </div>
+</body>
+<script src="/public/js/zepto.min.js"></script>
+<% include partials/register-wechat-api %>
+<% include partials/hide-wechat-menu %>
+</html>

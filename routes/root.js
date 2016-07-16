@@ -33,7 +33,7 @@ router.post('/uploadFile', function(req, res, next) {
 });
 
 router.get('/all-events', function(req, res, next) {
-  utils.fetchAllActiveRedPacket()
+  utils.fetchActiveRedPacket(0, 20)
     .then(function(redPackets){
       res.render('all-events', {
         user: utils.userSummary(req.currentUser),

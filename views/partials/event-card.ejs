@@ -7,7 +7,13 @@
       <div class="event-card-header-right">
         <div class="mb-5 cl-drak-grey">
           <span class="font-xlg"><%= event.creator.nickname %></span>
-          <span class="event-status-tag bg-red">￥<%= event.totalMoney/100.0 %></span>
+          <% if(event.status == 2) { %>
+            <span class="event-status-tag bg-red">未发布</span>
+          <% } else if(event.status == 3) { %>
+            <span class="event-status-tag bg-red">￥<%= event.totalMoney/100.0 %></span>
+          <% } else { %>
+            <span class="event-status-tag bg-red">已结束</span>
+          <% } %>
         </div>
         <div class="font-sm cl-grey"><%= event.createdAt %></div>
       </div>
