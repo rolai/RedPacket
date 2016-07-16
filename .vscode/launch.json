@@ -1,0 +1,46 @@
+{
+    "version": "0.2.0",
+    "configurations": [{
+        "name": "Launch",
+        "type": "node",
+        "request": "launch",
+        "program": "${workspaceRoot}/server.js",
+        "stopOnEntry": false,
+        "args": [],
+        "cwd": "${workspaceRoot}",
+        "preLaunchTask": null,
+        "runtimeExecutable": null,
+        "runtimeArgs": [
+            "--nolazy"
+        ],
+        "env": {
+            "NODE_ENV": "development",
+            "LC_APP_ID": "VHkuJIIbxYxPkMqTWJG3jiPs-gzGzoHsz",
+            "LC_APP_KEY": "DD7szF0fe2KpFEIaXh3P5AUJ",
+            "LC_APP_MASTER_KEY": "iwI7Mqwomf4Ua9Y6q5CW1UYW",
+            "LC_APP_PORT": 3000
+        },
+        "externalConsole": false,
+        "sourceMaps": false,
+        "outDir": null
+    }, {
+        "name": "Attach",
+        "type": "node",
+        "request": "attach",
+        "port": 5858,
+        "address": "localhost",
+        "restart": false,
+        "sourceMaps": false,
+        "outDir": null,
+        "localRoot": "${workspaceRoot}",
+        "remoteRoot": null
+    }, {
+        "name": "Attach to Process",
+        "type": "node",
+        "request": "attach",
+        "processId": "${command.PickProcess}",
+        "port": 5858,
+        "sourceMaps": false,
+        "outDir": null
+    }]
+}

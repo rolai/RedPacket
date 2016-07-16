@@ -1,0 +1,15 @@
+{
+    "prod": {
+        "APP_ID": "d1J5hdbFTGY4UCV0p29sfWkP-gzGzoHsz",
+        "APP_KEY": "VDxl1RUxDmv2LIDkAYIlta2N",
+        "MASTER_KEY": "ho6AdUVoXuMvgNe7MsUuCx4U",
+        "DOMAIN": "redpacket.leanapp.cn"
+    },
+    "wechat": {
+        "description": "蒸汽动力",
+        "appId": "wx356cb23c5aee906d",
+        "appSecret": "69d5096584492bb7e8ad69d817d6bf1e",
+        "mchId": "1326599501",
+        "apiKey": "56cbcb796be3f005c674c5a54006kfc3"
+    }
+}

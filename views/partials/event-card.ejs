@@ -1,0 +1,17 @@
+<div class="event-card-container">
+<a href="/rp/open/<%= event.id %>" >
+    <div class="event-card-header">
+      <div class="event-card-header-left">
+          <img src="<%= event.creator.avatar %>" >
+      </div>
+      <div class="event-card-header-right">
+        <div class="mb-5 cl-drak-grey">
+          <span class="font-xlg"><%= event.creator.nickname %></span>
+          <span class="event-status-tag bg-red">￥<%= event.totalMoney/100.0 %></span>
+        </div>
+        <div class="font-sm cl-grey"><%= event.createdAt %></div>
+      </div>
+    </div>
+    <p class="event-title font-xlg cl-drak-grey mt-10">【活动】<%= event.title %></p>
+</a>
+</div>

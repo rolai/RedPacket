@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<% include partials/header %>
+<title>红包</title>
+</head>
+<body>
+  <section class="container me-top-box text-center">
+    <img src="<%= user.avatar  %>" >
+    <p class="mt-10 cl-drak-grey font-lg "><%= user.nickname %></p>
+  </section>
+
+  <section class="me-cells-container">
+    <div class="weui_cells weui_cells_access">
+        <a class="weui_cell" href="/user/wallet">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>我的钱包</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell" href="/user/company-wallet">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>企业账户</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell" href="/user/events">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>我发布的活动</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+        <a class="weui_cell" href="javascript:;">
+            <div class="weui_cell_bd weui_cell_primary">
+                <p>关于&联系</p>
+            </div>
+            <div class="weui_cell_ft">
+            </div>
+        </a>
+    </div>
+    <div class="weui_cells_tips text-center mt-10">北京麦扣科技有限公司</div>
+    <div class="weui_cells_tips text-center">京ICP备16035005号</div>
+  </section>
+  <!--
+  <div class="nav">
+    <div class="weui_btn_area mb-10">
+      <a class="weui_btn weui_btn_primary" href="javascript:">回到首页</a>
+    </div>
+  </div>
+  -->
+</body>
+<script src="/public/js/zepto.min.js"></script>
+<% include partials/register-wechat-api %>
+<% include partials/hide-wechat-menu %>
+</html>

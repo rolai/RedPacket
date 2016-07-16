@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<% include partials/header %>
+<title>红包</title>
+</head>
+<body>
+  <section class="container me-top-box text-center">
+    <img src="/public/images/wallet-icon.png" >
+    <p class="mt-10 cl-drak-grey font-lg "><span class="font-md">余额</span>￥233</p>
+  </section>
+  <section class="container mb-80">
+    <% events.forEach(function(event) { %>
+      <% include partials/event-card %>
+    <% }) %>
+  </section>
+
+  <div class="nav">
+    <div class="rp-bottom-btns">
+      <a class="rp-bottom-btn rp-bottom-left-btn" href="/all-events">全部活动</a>
+      <a class="rp-bottom-btn rp-bottom-right-btn" href="/user/me">我的账户</a>
+    </div>
+  </div>
+</body>
+<script src="/public/js/zepto.min.js"></script>
+<% include partials/register-wechat-api %>
+<% include partials/hide-wechat-menu %>
+<script src="/public/js/red-packet.js"></script>
+</html>
