@@ -110,7 +110,7 @@ var utils = {
             adImageFileId: redPacket.get('adImage').id,
             publisherName: redPacket.get('publisherName'),
             title: redPacket.get('title'),
-            invalidDate: redPacket.get('invalidDate'),
+            invalidDate: redPacket.get('invalidDate').format("yyyy-MM-dd"),
             createdAt: redPacket.getCreatedAt().format("yyyy-MM-dd hh:mm:ss")
         };
         return obj;
@@ -312,10 +312,13 @@ var utils = {
         var query = new AV.Query('RedPacket');
         query.include('creator');
         query.equalTo('creator', user);
+        query.containedIn('status', constants.RED_PACKET_USER_VIEWABLE);
         return query.find()
             .then(function(rows) {
                 var redPackets = _.map(rows, utils.redPacketSummary);
                 return new AV.Promise.as(redPackets);
+            }, function(err) {
+                console.log(err);
             });
     },
 

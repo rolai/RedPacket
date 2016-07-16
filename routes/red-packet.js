@@ -74,27 +74,33 @@ router.post('/update-or-create', function(req, res, next) {
         .then(function(result) {
             // TODO, call wx pay api
             result.needPayMoney = 0;
+            redPacket = result.rawRedPacket;
+            redPacket.set('status', constants.RED_PACKET_STATUS.PAID);
+            return redPacket.save()
+                .then(function() {
+                    res.json({
+                        result: result
+                    });
+                });
+
             /*
             wxPayment.createUnifiedOrder({
-              body: '蒸汽动力-' + result.redPacket.title,
-              out_trade_no: result.redPacket.id,
-              total_fee: result.redPacket.totalMoney,
-              spbill_create_ip: myip.getLocalIP4(),
-              notify_url: getPayNotifyUrl(),
-              trade_type: 'JSAPI',
-              product_id: '',
-              openid: result.redPacket.creator.id
+                body: '蒸汽动力-' + result.redPacket.title,
+                out_trade_no: result.redPacket.id,
+                total_fee: result.redPacket.totalMoney,
+                spbill_create_ip: myip.getLocalIP4(),
+                notify_url: getPayNotifyUrl(),
+                trade_type: 'JSAPI',
+                product_id: '',
+                openid: result.redPacket.creator.id
             }, function(err, response){
-              console.log(err);
-              result.signedOrder =  wechatUtils.signOrder(response.prepay_id, wechatConfig.apiKey);
-              result.wxResponse = response;
-              res.json({
-                  result: result
-              });
+                console.log(err);
+                result.signedOrder =  wechatUtils.signOrder(response.prepay_id, wechatConfig.apiKey);
+                result.wxResponse = response;
+                res.json({
+                    result: result
+                });
             }); */
-            res.json({
-                result: result
-            });
         });
 });
 

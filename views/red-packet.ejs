@@ -16,7 +16,7 @@
   <div class="rp-ad-container">
     <img src="/public/images/ad.png" >
   </div>
-  <div class="rp-money-message">羡慕，辣眼睛！您获得了<span id="rd-money"><%= money %>元</span>红包</div>
+  <div class="rp-money-message">羡慕，辣眼睛！您获得了<span id="rd-money"><%= money == 'X' ? 'X' : money / 100.0 %>元</span>红包</div>
   <div id="rp-status-message"> 已有<%= redPacket.count - redPacket.leftCount %>人获得  丨  赏金剩余<%= redPacket.leftMoney / 100.0 %>元</div>
 
   <% if(preview) { %>

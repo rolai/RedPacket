@@ -64,7 +64,7 @@
     <div class="weui_cell">
       <div class="weui_cell_hd"><label class="weui_label">红包总额(元)</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" type="number" id="totalMoney" pattern="[1-9][0-9]*" value="<%= redPacket.totalMoney || ''  %>" placeholder="超过500元请联系客服微信：adiadk">
+        <input class="weui_input" type="number" id="totalMoney" pattern="[1-9][0-9]*" value="<%= redPacket.totalMoney ? redPacket.totalMoney / 100.0 : '' %>" placeholder="超过500元请联系客服微信：adiadk">
       </div>
     </div>
     <div class="weui_cell">

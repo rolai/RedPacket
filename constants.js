@@ -20,7 +20,9 @@ var Constants = {
         FINISHED: 4,
         CANCELED: 5,
         REMOVED: 6,
-    }
+    },
+
+    RED_PACKET_USER_VIEWABLE: [2, 3, 4, 5],
 };
 
 module.exports = Constants;
