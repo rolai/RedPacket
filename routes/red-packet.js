@@ -20,7 +20,7 @@ router.get('/open/:redPacketId', function(req, res, next) {
                 return q2.first().then(function(urpRecord) {
                   var share = {
                     title: redPacket.title,
-                    link: "http://" + req.domain + "/rp/open/" + redPacketId,
+                    link: "https://" + req.domain + "/rp/open/" + redPacketId,
                     imgUrl: redPacket.publisherAvatar
                   };
 
@@ -143,7 +143,7 @@ router.get('/preview/:redPacketId', function(req, res, next) {
                     money: 'X',
                     preview: true,
                     signature: req.signature,
-                    domain: req.domain
+                    share: null
                 });
             }
         });

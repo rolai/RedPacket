@@ -59,29 +59,22 @@ app.use(function(req, res, next) {
 
 // weixin signature
 app.use(function(req, res, next) {
-    if (app.get('env') === 'development') {
-        req.signature = {};
-        req.domain = req.get('host');
-        next();
-    } else {
-        if (req.method == 'GET' && req.originalUrl != '/user/login') {
-            wechatUtils.getWechatTicket()
-                .then(function(jsTicket) {
-                    console.log("jsTicket: %j", jsTicket);
-                    // console.log(req.protocol);
-                    var fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
-                    console.log(fullUrl);
-                    var signature = wechatUtils.signTicket(jsTicket.ticket, fullUrl);
-                    console.log("url %s, signature: %j", fullUrl, signature);
-                    req.signature = signature;
-                    req.domain = req.get('host');
-                    next();
-                });
-        } else {
-            next();
-        }
-    }
-
+      if (req.method == 'GET' && req.originalUrl != '/user/login') {
+          wechatUtils.getWechatTicket()
+              .then(function(jsTicket) {
+                  console.log("jsTicket: %j", jsTicket);
+                  // console.log(req.protocol);
+                  var fullUrl = 'https://' + req.get('host') + req.originalUrl;
+                  console.log(fullUrl);
+                  var signature = wechatUtils.signTicket(jsTicket.ticket, fullUrl);
+                  console.log("url %s, signature: %j", fullUrl, signature);
+                  req.signature = signature;
+                  req.domain = req.get('host');
+                  next();
+              });
+      } else {
+          next();
+      }
 });
 
 // 可以将一类的路由单独保存在一个文件中

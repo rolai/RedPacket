@@ -4,10 +4,3 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-router	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var router = require('express').Router();$/;"	variable	line:1
-AV	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var AV = require('..\/av.js');$/;"	variable	line:2
-request	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var request = require('request');$/;"	variable	line:3
-fs	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var fs = require('fs');$/;"	variable	line:4
-wechatUtils	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var wechatUtils = require('..\/wechat-utils.js');$/;"	variable	line:5
-utils	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var utils = require('..\/utils.js');$/;"	variable	line:6
-_	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var _ = require('underscore');$/;"	variable	line:7

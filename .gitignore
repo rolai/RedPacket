@@ -7,3 +7,5 @@ start.sh
 *.swp
 .avoscloud/
 .avoscloud/
+.tag/
+.tag1/

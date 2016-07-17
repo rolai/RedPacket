@@ -1,5 +1,6 @@
 <script type="text/javascript">
 wx.ready(function () {
+  <% if(share != null) { %>
     wx.onMenuShareAppMessage({
         title: '<%= share.title %>', // 分享标题
         desc: '<%= share.desc %>', // 分享描述
@@ -25,7 +26,7 @@ wx.ready(function () {
             // 用户取消分享后执行的回调函数
         }
     });
-
+  <% } %>
 });
 
 </script>
