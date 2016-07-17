@@ -1,0 +1,18 @@
+<div class="weui_mask" id="share-tips-mask" style="background: rgba(0, 0, 0, 0.8); display:none">
+   <div style="height:60px">
+       <img style="width: 90px; float: right; margin-right: 10px;" src="/public/images/share-arrow-icon.png">
+   </div>
+   <div style="margin-left: 20%;">
+     <div class="text-center mt-20 font-md cl-grey">点击右上角发送给微信好友</div>
+     <div class="text-center font-md cl-grey">或分享到朋友圈</div>
+   </div>
+</div>
+<script type="text/javascript">
+  function showShareTips(){
+    document.getElementById('share-tips-mask').style.display = 'block';
+  }
+
+  document.getElementById('share-tips-mask').addEventListener("click", function(e) {
+    document.getElementById('share-tips-mask').style.display = 'none';
+  })
+</script>

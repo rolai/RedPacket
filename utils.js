@@ -112,12 +112,24 @@ var utils = {
             adImage: redPacket.get('adImage').get('url'),
             adImageFileId: redPacket.get('adImage').id,
             publisherName: redPacket.get('publisherName'),
+            publisherPhoneNumber: redPacket.get('publisherPhoneNumber'),
             title: redPacket.get('title'),
-            invalidDate: redPacket.get('invalidDate').format("yyyy-MM-dd"),
-            //createdAt: redPacket.getCreatedAt().format("yyyy-MM-dd hh:mm:ss")
+            invalidDate: redPacket.get('invalidDate').format("yyyy/MM/dd"),
+            createdDate: redPacket.getCreatedAt().format("yyyy/MM/dd"),
             createdAt: moment(redPacket.getCreatedAt().getTime()).fromNow()
         };
         return obj;
+    },
+
+    convertRedPacketToCashFlowSummary: function(redpacket) {
+      var obj = {
+          id: redpacket.id,
+          cash: redpacket.leftMoney - redpacket.totalMoney,
+          type: 0,
+          info: redpacket.title,
+          createdAt: redpacket.createdDate
+      };
+      return obj;
     },
 
     /*
@@ -281,6 +293,7 @@ var utils = {
                 redPacket.set('adImage', utils.file(data.adImageFileId == 'null' ? '5784d9798ac24700604435ee' : data.adImageFileId));
                 redPacket.set('publisherAvatar', utils.file(data.publisherAvatarFileId == 'null' ? '5784d95fc4c971005c41acbb' : data.publisherAvatarFileId));
                 redPacket.set('publisherName', data.publisherName);
+                redPacket.set('publisherPhoneNumber', data.publisherPhoneNumber);
                 redPacket.set('title', data.title);
                 redPacket.set('invalidDate', new Date(data.invalidDate + " 23:59:59"));
                 redPacket.set('status', constants.RED_PACKET_STATUS.NEW);
@@ -317,10 +330,12 @@ var utils = {
     },
 
     fetchUserCreatedRedPacket: function(user) {
+        var oneMonthBefore = moment().subtract(1, 'months').toDate();
         var query = new AV.Query('RedPacket');
         query.include('creator');
         query.equalTo('creator', user);
         query.containedIn('status', constants.RED_PACKET_USER_VIEWABLE);
+        query.greaterThan('createdAt', oneMonthBefore);
         return query.find()
             .then(function(rows) {
                 var redPackets = _.map(rows, utils.redPacketSummary);
@@ -374,7 +389,7 @@ var utils = {
             cash: cashFlow.get('cash'),
             type: cashFlow.get('type'),
             info: cashFlow.get('info'),
-            createdAt: cashFlow.getCreatedAt().format("yyyy-MM-dd")
+            createdAt: cashFlow.getCreatedAt().format("yyyy/MM/dd")
         };
 
         if(obj.type == constants.CASH_FLOW.WITHDRAW) obj.info = '提现至微信零钱';
@@ -385,9 +400,12 @@ var utils = {
         page = page || 0;
         count = count || 20;
         if(count > 100) count = 100;
+        var oneMonthBefore = moment().subtract(1, 'months').toDate();
+
         var query = new AV.Query('CashFlow');
         query.equalTo('user', user);
         query.containedIn('type', [constants.CASH_FLOW.INCOME, constants.CASH_FLOW.WITHDRAW]);
+        query.greaterThan('createdAt', oneMonthBefore);
         query.descending('createdAt');
         query.skip(page * count);
         query.limit(count);
@@ -414,7 +432,7 @@ var utils = {
                 var cashFlows = _.map(rows, function(row){
                     var obj = {
                       cash: row.get('money'),
-                      createdAt: row.getCreatedAt().format("yyyy-MM-dd")
+                      createdAt: row.getCreatedAt().format("yyyy/MM/dd")
                     };
                     var userName = row.get('user').get('nickname');
                     obj.info = "*" + userName.substr(1) + "领取了红包";
@@ -422,6 +440,30 @@ var utils = {
                   });
                 return new AV.Promise.as(cashFlows);
             }, function(err) {console.log(err);});
+    },
+
+    updateRedPacketStatus: function(user, redPacketId, status) {
+      var result = {
+        result: false
+      };
+      var query = new AV.Query('RedPacket');
+      return query.get(redPacketId)
+        .then(function(redPacket) {
+          if (!redPacket) {
+              result.errorMessage = "没有找到活动记录，活动可能已经被删除";
+              return AV.Promise.as(result);
+          } else if (redPacket.get('creator').id != user.id && user.get('role') != constants.ROLE.ADMIN) {
+              result.errorMessage = "你没有权限修改本活动，请联系管理员";
+              return AV.Promise.as(result);
+          } else {
+            result.result = true;
+            redPacket.set('status', status);
+            return redPacket.save()
+              .then(function(){
+                return AV.Promise.as(result);
+              });
+          }
+        });
     },
 
 };

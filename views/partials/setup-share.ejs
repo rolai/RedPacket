@@ -1,10 +1,10 @@
 <script type="text/javascript">
 wx.ready(function () {
     wx.onMenuShareAppMessage({
-        title: '<%=user.activeProductTitle%>', // 分享标题
-        desc: '<%=user.nickname%>在蒜蒜等你，凭才华已赚了￥<%=user.earnedMoney/100.0%>元!', // 分享描述
-        link: 'https://<%=domain%>/store/public/<%=user.id%>', // 分享链接
-        imgUrl: '<%=user.avatar%>', // 分享图标
+        title: '<%= share.title %>', // 分享标题
+        desc: '<%= share.desc %>', // 分享描述
+        link: '<%= share.link %>', // 分享链接
+        imgUrl: '<%= share.imgUrl %>', // 分享图标
         success: function () {
             // 用户确认分享后执行的回调函数
 
@@ -15,9 +15,9 @@ wx.ready(function () {
     });
 
     wx.onMenuShareTimeline({
-        title: '<%=user.activeProductTitle%> <%=user.nickname%>在蒜蒜等你，凭才华已赚了￥<%=user.earnedMoney/100.0%>元！', // 分享标题
-        link: 'https://<%=domain%>/store/public/<%=user.id%>', // 分享链接
-        imgUrl: '<%=user.avatar%>', // 分享图标
+        title: '<%= share.timelineTitle || share.title %>', // 分享标题
+        link: '<%= share.link %>', // 分享链接
+        imgUrl: '<%= share.imgUrl %>', // 分享图标
         success: function () {
             // 用户确认分享后执行的回调函数
         },

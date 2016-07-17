@@ -12,6 +12,7 @@
   </section>
   <section class="container mb-60">
     <div id="activeEventList">
+      <% var admin = false %>
       <% events.forEach(function(event) { %>
         <% include partials/event-card %>
       <% }) %>

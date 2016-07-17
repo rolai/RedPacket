@@ -33,13 +33,20 @@ router.post('/uploadFile', function(req, res, next) {
 });
 
 router.get('/all-events', function(req, res, next) {
+  var share = {
+    title: "所有活动",
+    desc: "参加活动，赢得红包，等你来玩",
+    link: "http://" + req.domain + "/all-events",
+    imgUrl: "http://" + req.domain + "/public/images/wallet-icon.png"
+  };
+
   utils.fetchActiveRedPacket(0, 20)
     .then(function(redPackets){
       res.render('all-events', {
         user: utils.userSummary(req.currentUser),
         events: redPackets,
         signature: req.signature,
-        domain: req.domain
+        share: share
       });
     });
 });

@@ -6,18 +6,36 @@
 </head>
 <body>
   <section class="container mt-10 mb-60">
+    <% var admin = true; %>
     <% events.forEach(function(event) { %>
       <% include partials/event-card %>
     <% }) %>
+
+    <div id="actionSheet_wrap">
+       <div class="weui_mask_transition" id="mask"></div>
+       <div class="weui_actionsheet" id="weui_actionsheet">
+           <div class="weui_actionsheet_menu">
+               <div class="weui_actionsheet_cell" id="preview-event-btn">查看活动</div>
+                <div class="weui_actionsheet_cell" id="update-event-btn">发布活动</div>
+               <div class="weui_actionsheet_cell" id="close-event-btn">下架活动</div>
+               <div class="weui_actionsheet_cell" id="delete-event-btn">删除活动</div>
+           </div>
+           <div class="weui_actionsheet_action">
+               <div class="weui_actionsheet_cell" id="actionsheet_cancel">取消</div>
+           </div>
+       </div>
+    </div>
   </section>
 
   <div class="nav">
-    <div class="weui_btn_area mb-10">
-      <a class="weui_btn weui_btn_primary submit-btn" href="/rp/create">发布活动</a>
+    <div class="rp-bottom-btns">
+      <a class="rp-bottom-btn rp-bottom-left-btn" href="/rp/create">发布活动</a>
+      <a class="rp-bottom-btn rp-bottom-right-btn" href="/user/me">我的账户</a>
     </div>
   </div>
 </body>
 <script src="/public/js/zepto.min.js"></script>
 <% include partials/register-wechat-api %>
 <% include partials/hide-wechat-menu %>
+<script src="/public/js/user-event.js"></script>
 </html>

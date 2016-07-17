@@ -6,6 +6,7 @@
 </head>
 <body>
   <section class="container mt-10">
+    <% var admin = false %>
     <% events.forEach(function(event) { %>
       <% include partials/event-card %>
     <% }) %>
@@ -20,5 +21,5 @@
 </body>
 <script src="/public/js/zepto.min.js"></script>
 <% include partials/register-wechat-api %>
-<% include partials/hide-wechat-menu %>
+<% include partials/setup-share %>
 </html>

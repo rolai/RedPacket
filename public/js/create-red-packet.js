@@ -72,7 +72,7 @@ function createRedPacket(data, payIt) {
         data,
         function(response) {
             var json = JSON.parse(response).result;
-            if (json.result == true) {
+            if (json.result === true) {
                 if (json.needPayMoney > 0) {
                     payIt(json.redPacket, json.signedRedPacket);
                 } else {
@@ -94,6 +94,7 @@ function verfiyInputData() {
         adImageFileId: redPacketImageFileId,
         publisherAvatarFileId: publisherAvatarFileId,
         publisherName: $('#publisherName').val(),
+        publisherPhoneNumber: $('#publisherPhoneNumber').val(),
         title: $('#redPacketTitle').val(),
         invalidDate: $('#invalidDate').val()
     };
@@ -102,6 +103,12 @@ function verfiyInputData() {
         showMessageBox('出错', '请提供商家名称！');
         return null;
     }
+
+    if (data.publisherPhoneNumber === '') {
+        showMessageBox('出错', '请提供商家的联系方式！');
+        return null;
+    }
+
     /*
       if(data.publisherAvatarFileId === null) {
         showMessageBox('出错', '请选择商家头像！');

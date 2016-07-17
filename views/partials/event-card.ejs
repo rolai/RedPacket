@@ -1,5 +1,9 @@
 <div class="event-card-container">
-<a href="/rp/open/<%= event.id %>" >
+<% var url = "/rp/open/" + event.id; %>
+<% if(admin) {  %>
+  <% if(event.status == 1) { url = "/rp/update/" + event.id; } else { url = "/rp/preview/" + event.id;} %>
+<% } %>
+<a href="<%= url %>" >
     <div class="event-card-header">
       <div class="event-card-header-left">
           <img src="<%= event.creator.avatar %>" >
@@ -7,17 +11,22 @@
       <div class="event-card-header-right">
         <div class="mb-5 cl-drak-grey">
           <span class="font-xlg"><%= event.creator.nickname %></span>
-          <% if(event.status == 2) { %>
-            <span class="event-status-tag bg-red">未发布</span>
-          <% } else if(event.status == 3) { %>
+          <% if(event.status == 1) { %>
+            <span class="event-status-tag bg-yellow">未发布</span>
+          <% } else if(event.status == 2 || event.status == 3) { %>
             <span class="event-status-tag bg-red">￥<%= event.totalMoney/100.0 %></span>
           <% } else { %>
-            <span class="event-status-tag bg-red">已结束</span>
+            <span class="event-status-tag bg-grey">已结束</span>
           <% } %>
         </div>
         <div class="font-sm cl-grey"><%= event.createdAt %></div>
       </div>
     </div>
     <p class="event-title font-xlg cl-drak-grey mt-10">【活动】<%= event.title %></p>
-</a>
+  </a>
+  <% if(admin) { %>
+    <div class="setting-icon-container">
+      <img class="settings-icon" data-id="<%= event.id %>" data-status="<%= event.status %>" src="/public/images/setting-icon.png">
+    </div>
+  <% } %>
 </div>

@@ -1800,7 +1800,7 @@ a.weui_media_box:active {
   height: 100%;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.6);
+  background: rgba(0, 0, 0, 0.4);
 }
 .weui_mask_transparent {
   position: fixed;

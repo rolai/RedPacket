@@ -10,26 +10,39 @@ router.get('/open/:redPacketId', function(req, res, next) {
     return utils.fetchRedPacket(redPacketId)
         .then(function(redPacket) {
             if (!redPacket || redPacket.status == constants.RED_PACKET_STATUS.REMOVED) {
-                return res.render('removed-red-packet');
+                return res.render('removed-red-packet', {
+                    signature: req.signature
+                });
             } else {
                 var q2 = new AV.Query('UserRedPacket');
                 q2.equalTo('user', currentUser);
                 q2.equalTo('redPacket', utils.redPacket(redPacketId));
                 return q2.first().then(function(urpRecord) {
-                    return res.render('red-packet', {
-                        redPacket: redPacket,
-                        money: urpRecord ? urpRecord.get('money') / 100.0 : 'X',
-                        preview: false,
-                        signature: req.signature,
-                        domain: req.domain
-                    });
+                  var share = {
+                    title: redPacket.title,
+                    link: "http://" + req.domain + "/rp/open/" + redPacketId,
+                    imgUrl: redPacket.publisherAvatar
+                  };
+
+                  if(redPacket.count == redPacket.leftCount) {
+                    share.desc = redPacket.totalMoney / 100.0 + "元的红包等你来拿！";
+                  } else {
+                    share.desc = "已经有" + (redPacket.count - redPacket.leftCount) + "人抢到了红包，还剩" + redPacket.leftMoney / 100.0 + "元等你来拿！";
+                  }
+
+                  return res.render('red-packet', {
+                      redPacket: redPacket,
+                      money: urpRecord ? urpRecord.get('money') / 100.0 : 'X',
+                      preview: false,
+                      signature: req.signature,
+                      share: share
+                  });
                 });
             }
         });
 });
 
 router.post('/open', function(req, res, next) {
-    console.log('open: %j', req.body);
     var redPacketId = req.body.redPacketId;
     var currentUser = req.currentUser;
     return utils.openRedPacket(currentUser, redPacketId)
@@ -75,7 +88,7 @@ router.post('/update-or-create', function(req, res, next) {
             // TODO, call wx pay api
             result.needPayMoney = 0;
             redPacket = result.rawRedPacket;
-            redPacket.set('status', constants.RED_PACKET_STATUS.PAID);
+            redPacket.set('status', constants.RED_PACKET_STATUS.RUNNING);
             return redPacket.save()
                 .then(function() {
                     res.json({
@@ -166,6 +179,24 @@ router.get('/status/:redPacketId', function(req, res, next) {
                 });
             }
         });
+});
+
+router.post('/close', function(req, res, next) {
+  return utils.updateRedPacketStatus(req.currentUser, req.body.redPacketId, constants.RED_PACKET_STATUS.CLOSED)
+    .then(function(result){
+      return res.json({
+          result: result
+      });
+    });
+});
+
+router.post('/delete', function(req, res, next) {
+  return utils.updateRedPacketStatus(req.currentUser, req.body.redPacketId, constants.RED_PACKET_STATUS.REMOVED)
+    .then(function(result){
+      return res.json({
+          result: result
+      });
+    });
 });
 
 module.exports = router;

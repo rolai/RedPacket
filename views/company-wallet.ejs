@@ -12,12 +12,8 @@
   <section class="container mt-20 mb-80 cl-drak-grey ">
     <div class="bg-white" style="padding: 10px 20px;">
       <div class="text-center font-lg cl-grey mb-20">创建的活动</div>
-      <% events.forEach(function(event) { %>
-        <div class="font-lg"><%= event.title %></div>
-        <div class="font-sm mt-5">
-          <span class="cl-yellow"><%= event.createdAt %></span>
-          <span class="cl-red" style="float:right">-<%= event.totalMoney / 100.0 %>元</span>
-        </div>
+      <% events.forEach(function(item) { %>
+        <% include partials/cash-flow %>
       <% }) %>
     </div>
   </section>

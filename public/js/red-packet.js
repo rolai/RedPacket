@@ -38,3 +38,7 @@ $('.open-rp-btn').on('click', function(e) {
     }
   );
 });
+
+$('#rp-share-btn').on('click', function(e) {
+  showShareTips();
+});

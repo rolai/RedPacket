@@ -4,6 +4,7 @@ var request = require('request');
 var fs = require('fs');
 var wechatUtils = require('../wechat-utils.js');
 var utils = require('../utils.js');
+var _ = require('underscore');
 
 // 渲染登录页面
 router.get('/login', function(req, res, next) {
@@ -39,7 +40,6 @@ router.get('/wallet', function(req, res, next) {
       return utils.fetchUserCashFlow(req.currentUser, 0, 60);
     })
     .then(function(cashFlows){
-      console.log(cashFlows);
       return res.render('user-wallet', {
           user: utils.userSummary(req.currentUser),
           events: redPackets,
@@ -53,9 +53,10 @@ router.get('/wallet', function(req, res, next) {
 router.get('/company-wallet', function(req, res, next) {
   utils.fetchUserCreatedRedPacket(req.currentUser)
     .then(function(redPackets){
+      var events = _.map(redPackets, utils.convertRedPacketToCashFlowSummary);
       res.render('company-wallet', {
         user: utils.userSummary(req.currentUser),
-        events: redPackets,
+        events: events,
         signature: req.signature,
         domain: req.domain
       });

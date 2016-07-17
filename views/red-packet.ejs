@@ -16,26 +16,37 @@
   <div class="rp-ad-container">
     <img src="/public/images/ad.png" >
   </div>
-  <div class="rp-money-message">羡慕，辣眼睛！您获得了<span id="rd-money"><%= money == 'X' ? 'X' : money / 100.0 %>元</span>红包</div>
-  <div id="rp-status-message"> 已有<%= redPacket.count - redPacket.leftCount %>人获得  丨  赏金剩余<%= redPacket.leftMoney / 100.0 %>元</div>
 
-  <% if(preview) { %>
-    <% if(redPacket.status == 1 ) { %>
-      <a class="crp-bottom-btn"  href="/rp/update/<%= redPacket.id %>">返回编辑</a>
+  <div class="mb-60">
+    <% if(preview || redPacket.status < 4 ) { %>
+      <div class="rp-money-message">羡慕，辣眼睛！您获得了<span id="rd-money"><%= money == 'X' ? 'X' : money / 100.0 %>元</span>红包</div>
+      <div id="rp-status-message"> 已有<%= redPacket.count - redPacket.leftCount %>人获得  丨  赏金剩余<%= redPacket.leftMoney / 100.0 %>元</div>
     <% } else { %>
-      <a class="crp-bottom-btn"  href="/rp/details/<%= redPacket.id %>">查看实时数据</a>
+      <div class="text-center font-lg cl-grey mt-20"> 关注公众号“红包小助手” </div>
+      <div class="text-center font-lg cl-grey"> 获知更多活动信息 </div>
     <% } %>
-  <% } else { %>
-    <div class="rp-bottom-btns">
-      <a class="rp-bottom-btn rp-bottom-left-btn"  href="javascript:">与好友分享</a>
-      <a class="rp-bottom-btn rp-bottom-right-btn"  href="/user/wallet">我的钱包</a>
-    </div>
-   <% } %>
+  </div>
+
+  <div class="nav">
+    <% if(preview) { %>
+      <% if(redPacket.status == 1 ) { %>
+        <a class="crp-bottom-btn"  href="/rp/update/<%= redPacket.id %>">返回编辑</a>
+      <% } else { %>
+        <a class="crp-bottom-btn"  href="/rp/status/<%= redPacket.id %>">查看实时数据</a>
+      <% } %>
+    <% } else { %>
+      <div class="rp-bottom-btns">
+        <a class="rp-bottom-btn rp-bottom-left-btn"  id="rp-share-btn" href="javascript:">与好友分享</a>
+        <a class="rp-bottom-btn rp-bottom-right-btn"  href="/user/wallet">我的钱包</a>
+      </div>
+     <% } %>
+  </div>
 </section>
 <% include partials/message-box %>
+<% include partials/share-tips %>
 </body>
 <script src="/public/js/zepto.min.js"></script>
 <% include partials/register-wechat-api %>
-<% include partials/hide-wechat-menu %>
+<% include partials/setup-share %>
 <script src="/public/js/red-packet.js"></script>
 </html>

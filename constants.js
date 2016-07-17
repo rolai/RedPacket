@@ -14,15 +14,16 @@ var Constants = {
     },
 
     RED_PACKET_STATUS: {
+        TEMPLE: 0,
         NEW: 1,
-        PAID: 2,
+        PAID: 2, // do not need, this is the same with RUNNING
         RUNNING: 3,
         FINISHED: 4,
-        CANCELED: 5,
+        CLOSED: 5, // same as FININSHED
         REMOVED: 6,
     },
 
-    RED_PACKET_USER_VIEWABLE: [2, 3, 4, 5],
+    RED_PACKET_USER_VIEWABLE: [1, 2, 3, 4, 5],
 };
 
 module.exports = Constants;

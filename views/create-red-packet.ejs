@@ -16,6 +16,12 @@
       </div>
     </div>
     <div class="weui_cell">
+      <div class="weui_cell_hd"><label class="weui_label">联系方式</label></div>
+      <div class="weui_cell_bd weui_cell_primary">
+        <input class="weui_input" type="number" id="publisherPhoneNumber" pattern="[1-9][0-9]*" value="<%= redPacket.publisherPhoneNumber || ''  %>" placeholder="电话或手机号码">
+      </div>
+    </div>
+    <div class="weui_cell">
       <div class="weui_cell_hd"><label class="weui_label">商家头像</label></div>
       <div class="weui_cell_bd weui_cell_primary">
         <div class="upload-image-box">
@@ -38,7 +44,7 @@
     <div class="weui_cell">
       <div class="weui_cell_hd"><label class="weui_label">到期时间</label></div>
       <div class="weui_cell_bd weui_cell_primary">
-        <input class="weui_input" id="invalidDate" value="<%= redPacket.invalidDate || ''  %>" type="date">
+        <input class="weui_input" id="invalidDate" value="<%= (redPacket.invalidDate || '').replace(/\//g, '-')  %>" type="date">
       </div>
     </div>
     <div class="weui_cell">
@@ -74,13 +80,14 @@
       </div>
     </div>
   </div>
-  <div class="weui_cells_tips">红包为随机结果，人均红包不得低于0.3元</div>
+  <div class="weui_cells_tips mb-10">红包为随机结果，人均红包不得低于0.3元</div>
 </section>
 
-<div class="weui_btn_area mt-30">
-  <a class="weui_btn weui_btn_primary" href="javascript:" data-id="<%= redPacket.id || ''  %>" id="crp-pay-btn">发布并支付</a>
-  <a class="weui_btn weui_btn_default"  href="javascript:" data-id="<%= redPacket.id || ''  %>" id="crp-preview-btn">预览</a>
+<div class="mt-20 rp-bottom-btns">
+  <a class="rp-bottom-btn rp-bottom-left-btn"  href="javascript:" data-id="<%= redPacket.id || ''  %>" id="crp-preview-btn">预览</a>
+  <a class="rp-bottom-btn rp-bottom-right-btn"  href="javascript:" data-id="<%= redPacket.id || ''  %>" id="crp-pay-btn">支付并发布</a>
 </div>
+
 <% include partials/message-box %>
 </body>
 
