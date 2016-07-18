@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<% include ../partials/header %>
+<title>微信红包充值</title>
+</head>
+<body>
+  <section class="hp-top-box">
+    <div>
+      <p class="hp-header-title font-numlg cl-white">充值</p>
+    </div>
+  </section>
+  <section class="container mt-30">
+    
+    <% include ../partials/user-card %>
+
+    <form method="post" action="/admin/charge/<%= user.id %>">
+      <div class="inp-bg">
+        <input name="username" type="number" placeholder="请输入充值金额"></input>
+      </div>
+      <input class="submit-btn" type="submit" value="为<%=user.nickname%>充值">
+    </form>
+  </section>
+</body>
+</html>

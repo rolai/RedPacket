@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<% include ../partials/header %>
+<title>微信红包</title>
+</head>
+<body>
+  <section class="container">
+    <% if(users.length == 0) { %>
+      <div class="mt-30 font-lg text-center cl-drak-grey">没有找到相应用户</div>
+    <% } else { %>
+      <% users.forEach(function(user) { %>
+        <% include ../partials/user-card %>
+      <% }) %>
+    <% } %>
+  </section>
+</body>
+</html>

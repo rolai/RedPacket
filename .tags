@@ -419,73 +419,6 @@ input[type="search"]::-webkit-search-decoration	/Users/lairf/MyProject/RedPacket
 input[type="search"]::-webkit-search-cancel-button	/Users/lairf/MyProject/RedPacket/public/stylesheets/weui.css	/^input[type="search"]::-webkit-search-cancel-button,$/;"	function	line:2015
 input[type="search"]::-webkit-search-results-button	/Users/lairf/MyProject/RedPacket/public/stylesheets/weui.css	/^input[type="search"]::-webkit-search-results-button,$/;"	function	line:2016
 input[type="search"]::-webkit-search-results-decoration	/Users/lairf/MyProject/RedPacket/public/stylesheets/weui.css	/^input[type="search"]::-webkit-search-results-decoration {$/;"	function	line:2017
-AV	/Users/lairf/MyProject/RedPacket/utils.js	/^var AV = require('.\/av.js');$/;"	variable	line:1
-request	/Users/lairf/MyProject/RedPacket/utils.js	/^var request = require('request');$/;"	variable	line:2
-constants	/Users/lairf/MyProject/RedPacket/utils.js	/^var constants = require('.\/constants');$/;"	variable	line:4
-_	/Users/lairf/MyProject/RedPacket/utils.js	/^var _ = require('underscore');$/;"	variable	line:5
-moment	/Users/lairf/MyProject/RedPacket/utils.js	/^var moment = require('moment');$/;"	variable	line:6
-requestToJSONAsPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    requestToJSONAsPromise: function(url) {$/;"	function	line:11
-utils.requestToJSONAsPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^var utils = {$/;"	method	line:10
-requestToPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    requestToPromise: function(options) {$/;"	function	line:18
-utils.requestToPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:16
-request	/Users/lairf/MyProject/RedPacket/utils.js	/^            request(options, function(err, res, body) {$/;"	function	line:20
-user	/Users/lairf/MyProject/RedPacket/utils.js	/^    user: function(userId) {$/;"	function	line:33
-utils.user	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:31
-file	/Users/lairf/MyProject/RedPacket/utils.js	/^    file: function(fileId) {$/;"	function	line:37
-utils.file	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:35
-redPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    redPacket: function(redPacketId) {$/;"	function	line:41
-utils.redPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:39
-fetchUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUser: function(userId) {$/;"	function	line:45
-utils.fetchUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:43
-userSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    userSummary: function(user) {$/;"	function	line:52
-utils.userSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:50
-utils.userSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:53
-findOrCreateUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    findOrCreateUser: function(userInfo) {$/;"	function	line:68
-utils.findOrCreateUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:66
-fetchRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchRedPacket: function(redPacketId) {$/;"	function	line:86
-utils.fetchRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:84
-redPacketSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    redPacketSummary: function(redPacket) {$/;"	function	line:100
-utils.redPacketSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:98
-utils.redPacketSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:101
-convertRedPacketToCashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    convertRedPacketToCashFlowSummary: function(redpacket) {$/;"	function	line:124
-utils.convertRedPacketToCashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:122
-utils.convertRedPacketToCashFlowSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^      var obj = {$/;"	property	line:125
-openRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    openRedPacket: function(user, redPacketId) {$/;"	function	line:146
-utils.openRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:133
-luckMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    luckMoney: function(totalMoney, count, leftMoney, leftCount) {$/;"	function	line:213
-utils.luckMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:211
-withdrawMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    withdrawMoney: function(user, money) {$/;"	function	line:224
-utils.withdrawMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:222
-addCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    addCashFlow: function(user, cash, type, info, recordId) {$/;"	function	line:254
-utils.addCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:252
-updateOrCreateRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    updateOrCreateRedPacket: function(user, data) {$/;"	function	line:267
-utils.updateOrCreateRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:263
-utils.updateOrCreateRedPacket.result.result	/Users/lairf/MyProject/RedPacket/utils.js	/^        var result = {$/;"	property	line:268
-paidForRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    paidForRedPacket: function(user, redPacket) {$/;"	function	line:322
-utils.paidForRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:320
-fetchUserCreatedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUserCreatedRedPacket: function(user) {$/;"	function	line:332
-utils.fetchUserCreatedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:330
-fetchUserOpenedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUserOpenedRedPacket: function(user) {$/;"	function	line:348
-utils.fetchUserOpenedRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:346
-fetchActiveRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchActiveRedPacket: function(page, count) {$/;"	function	line:368
-utils.fetchActiveRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:366
-cashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    cashFlowSummary: function(cashFlow) {$/;"	function	line:386
-utils.cashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:384
-utils.cashFlowSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:387
-fetchUserCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUserCashFlow: function(user, page, count) {$/;"	function	line:399
-utils.fetchUserCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:397
-fetchRedPacketCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchRedPacketCashFlow: function(redPacketId, page, count) {$/;"	function	line:419
-utils.fetchRedPacketCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:417
-updateRedPacketStatus	/Users/lairf/MyProject/RedPacket/utils.js	/^    updateRedPacketStatus: function(user, redPacketId, status) {$/;"	function	line:445
-utils.updateRedPacketStatus	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:443
-utils.updateRedPacketStatus.result.result	/Users/lairf/MyProject/RedPacket/utils.js	/^      var result = {$/;"	property	line:446
-router	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var router = require('express').Router();$/;"	variable	line:1
-AV	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var AV = require('..\/av.js');$/;"	variable	line:2
-request	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var request = require('request');$/;"	variable	line:3
-fs	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var fs = require('fs');$/;"	variable	line:4
-wechatUtils	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var wechatUtils = require('..\/wechat-utils.js');$/;"	variable	line:5
-utils	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var utils = require('..\/utils.js');$/;"	variable	line:6
-_	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var _ = require('underscore');$/;"	variable	line:7
 router	/Users/lairf/MyProject/RedPacket/routes/root.js	/^var router = require('express').Router();$/;"	variable	line:1
 AV	/Users/lairf/MyProject/RedPacket/routes/root.js	/^var AV = require('..\/av.js');$/;"	variable	line:2
 request	/Users/lairf/MyProject/RedPacket/routes/root.js	/^var request = require('request');$/;"	variable	line:3
@@ -496,19 +429,6 @@ router	/Users/lairf/MyProject/RedPacket/routes/red-packet.js	/^var router = requ
 AV	/Users/lairf/MyProject/RedPacket/routes/red-packet.js	/^var AV = require('..\/av.js');$/;"	variable	line:2
 utils	/Users/lairf/MyProject/RedPacket/routes/red-packet.js	/^var utils = require('..\/utils');$/;"	variable	line:3
 constants	/Users/lairf/MyProject/RedPacket/routes/red-packet.js	/^var constants = require('..\/constants');$/;"	variable	line:4
-express	/Users/lairf/MyProject/RedPacket/app.js	/^var express = require('express');$/;"	variable	line:2
-timeout	/Users/lairf/MyProject/RedPacket/app.js	/^var timeout = require('connect-timeout');$/;"	variable	line:3
-path	/Users/lairf/MyProject/RedPacket/app.js	/^var path = require('path');$/;"	variable	line:4
-cookieParser	/Users/lairf/MyProject/RedPacket/app.js	/^var cookieParser = require('cookie-parser');$/;"	variable	line:5
-bodyParser	/Users/lairf/MyProject/RedPacket/app.js	/^var bodyParser = require('body-parser');$/;"	variable	line:6
-AV	/Users/lairf/MyProject/RedPacket/app.js	/^var AV = require('leanengine');$/;"	variable	line:7
-extension	/Users/lairf/MyProject/RedPacket/app.js	/^var extension = require('.\/extension');$/;"	variable	line:8
-wechatUtils	/Users/lairf/MyProject/RedPacket/app.js	/^var wechatUtils = require('.\/wechat-utils');$/;"	variable	line:9
-wechat	/Users/lairf/MyProject/RedPacket/app.js	/^var wechat = require('.\/routes\/wechat');$/;"	variable	line:10
-rootRoutes	/Users/lairf/MyProject/RedPacket/app.js	/^var rootRoutes = require('.\/routes\/root');$/;"	variable	line:11
-userRoutes	/Users/lairf/MyProject/RedPacket/app.js	/^var userRoutes = require('.\/routes\/user');$/;"	variable	line:12
-redPacket	/Users/lairf/MyProject/RedPacket/app.js	/^var redPacket = require('.\/routes\/red-packet');$/;"	variable	line:13
-app	/Users/lairf/MyProject/RedPacket/app.js	/^var app = express();$/;"	variable	line:15
 router	/Users/lairf/MyProject/RedPacket/routes/wechat.js	/^var router = require('express').Router();$/;"	variable	line:1
 request	/Users/lairf/MyProject/RedPacket/routes/wechat.js	/^var request = require('request');$/;"	variable	line:2
 fs	/Users/lairf/MyProject/RedPacket/routes/wechat.js	/^var fs = require('fs');$/;"	variable	line:3
@@ -641,3 +561,65 @@ a	/Users/lairf/MyProject/RedPacket/public/stylesheets/style.css	/^a {$/;"	functi
 .event-price-tag	/Users/lairf/MyProject/RedPacket/public/stylesheets/style.css	/^.event-price-tag {$/;"	function	line:622
 .setting-icon-container	/Users/lairf/MyProject/RedPacket/public/stylesheets/style.css	/^.setting-icon-container {$/;"	function	line:631
 .settings-icon	/Users/lairf/MyProject/RedPacket/public/stylesheets/style.css	/^.settings-icon {$/;"	function	line:636
+router	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var router = require('express').Router();$/;"	variable	line:1
+AV	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var AV = require('..\/av.js');$/;"	variable	line:2
+utils	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var utils = require('..\/utils.js');$/;"	variable	line:3
+_	/Users/lairf/MyProject/RedPacket/routes/user.js	/^var _ = require('underscore');$/;"	variable	line:4
+express	/Users/lairf/MyProject/RedPacket/app.js	/^var express = require('express');$/;"	variable	line:2
+timeout	/Users/lairf/MyProject/RedPacket/app.js	/^var timeout = require('connect-timeout');$/;"	variable	line:3
+path	/Users/lairf/MyProject/RedPacket/app.js	/^var path = require('path');$/;"	variable	line:4
+cookieParser	/Users/lairf/MyProject/RedPacket/app.js	/^var cookieParser = require('cookie-parser');$/;"	variable	line:5
+bodyParser	/Users/lairf/MyProject/RedPacket/app.js	/^var bodyParser = require('body-parser');$/;"	variable	line:6
+AV	/Users/lairf/MyProject/RedPacket/app.js	/^var AV = require('leanengine');$/;"	variable	line:7
+extension	/Users/lairf/MyProject/RedPacket/app.js	/^var extension = require('.\/extension');$/;"	variable	line:8
+wechatUtils	/Users/lairf/MyProject/RedPacket/app.js	/^var wechatUtils = require('.\/wechat-utils');$/;"	variable	line:9
+wechat	/Users/lairf/MyProject/RedPacket/app.js	/^var wechat = require('.\/routes\/wechat');$/;"	variable	line:10
+rootRoutes	/Users/lairf/MyProject/RedPacket/app.js	/^var rootRoutes = require('.\/routes\/root');$/;"	variable	line:11
+userRoutes	/Users/lairf/MyProject/RedPacket/app.js	/^var userRoutes = require('.\/routes\/user');$/;"	variable	line:12
+redPacket	/Users/lairf/MyProject/RedPacket/app.js	/^var redPacket = require('.\/routes\/red-packet');$/;"	variable	line:13
+adminRoutes	/Users/lairf/MyProject/RedPacket/app.js	/^var adminRoutes = require('.\/routes\/admin');$/;"	variable	line:14
+constants	/Users/lairf/MyProject/RedPacket/app.js	/^var constants = require('.\/constants');$/;"	variable	line:15
+app	/Users/lairf/MyProject/RedPacket/app.js	/^var app = express();$/;"	variable	line:17
+router	/Users/lairf/MyProject/RedPacket/routes/admin.js	/^var router = require('express').Router();$/;"	variable	line:1
+AV	/Users/lairf/MyProject/RedPacket/routes/admin.js	/^var AV = require('..\/av.js');$/;"	variable	line:2
+utils	/Users/lairf/MyProject/RedPacket/routes/admin.js	/^var utils = require('..\/utils.js');$/;"	variable	line:3
+_	/Users/lairf/MyProject/RedPacket/routes/admin.js	/^var _ = require('underscore');$/;"	variable	line:4
+constants	/Users/lairf/MyProject/RedPacket/routes/admin.js	/^var constants = require('..\/constants');$/;"	variable	line:5
+AV	/Users/lairf/MyProject/RedPacket/utils.js	/^var AV = require('.\/av.js');$/;"	variable	line:1
+request	/Users/lairf/MyProject/RedPacket/utils.js	/^var request = require('request');$/;"	variable	line:2
+constants	/Users/lairf/MyProject/RedPacket/utils.js	/^var constants = require('.\/constants');$/;"	variable	line:4
+_	/Users/lairf/MyProject/RedPacket/utils.js	/^var _ = require('underscore');$/;"	variable	line:5
+moment	/Users/lairf/MyProject/RedPacket/utils.js	/^var moment = require('moment');$/;"	variable	line:6
+requestToJSONAsPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    requestToJSONAsPromise: function(url) {$/;"	function	line:11
+utils.requestToJSONAsPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^var utils = {$/;"	method	line:10
+requestToPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    requestToPromise: function(options) {$/;"	function	line:18
+utils.requestToPromise	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:16
+request	/Users/lairf/MyProject/RedPacket/utils.js	/^            request(options, function(err, res, body) {$/;"	function	line:20
+user	/Users/lairf/MyProject/RedPacket/utils.js	/^    user: function(userId) {$/;"	function	line:33
+utils.user	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:31
+file	/Users/lairf/MyProject/RedPacket/utils.js	/^    file: function(fileId) {$/;"	function	line:37
+utils.file	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:35
+redPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    redPacket: function(redPacketId) {$/;"	function	line:41
+utils.redPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:39
+fetchUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchUser: function(userId) {$/;"	function	line:45
+utils.fetchUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:43
+userSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    userSummary: function(user) {$/;"	function	line:52
+utils.userSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:50
+utils.userSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:53
+findOrCreateUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    findOrCreateUser: function(userInfo) {$/;"	function	line:69
+utils.findOrCreateUser	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:67
+fetchRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    fetchRedPacket: function(redPacketId) {$/;"	function	line:87
+utils.fetchRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:85
+redPacketSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    redPacketSummary: function(redPacket) {$/;"	function	line:101
+utils.redPacketSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:99
+utils.redPacketSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^        var obj = {$/;"	property	line:102
+convertRedPacketToCashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    convertRedPacketToCashFlowSummary: function(redpacket) {$/;"	function	line:125
+utils.convertRedPacketToCashFlowSummary	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:123
+utils.convertRedPacketToCashFlowSummary.obj.id	/Users/lairf/MyProject/RedPacket/utils.js	/^      var obj = {$/;"	property	line:126
+openRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    openRedPacket: function(user, redPacketId) {$/;"	function	line:147
+utils.openRedPacket	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:134
+luckMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    luckMoney: function(totalMoney, count, leftMoney, leftCount) {$/;"	function	line:214
+utils.luckMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:212
+withdrawMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    withdrawMoney: function(user, money) {$/;"	function	line:225
+utils.withdrawMoney	/Users/lairf/MyProject/RedPacket/utils.js	/^    },$/;"	method	line:223
+addCashFlow	/Users/lairf/MyProject/RedPacket/utils.js	/^    addCashFlow: function(user, cash, 

@@ -1,0 +1,17 @@
+<div class="event-card-container">
+  <a href="/admin/charge/<%= user.id %>" >
+    <div class="event-card-header">
+      <div class="event-card-header-left">
+          <img src="<%= user.avatar %>" >
+      </div>
+      <div class="event-card-header-right">
+        <div class="mb-5 cl-drak-grey">
+          <span class="font-xlg"><%= user.nickname %></span>
+          <span class="font-sm cl-grey"><%= user.createdAt %></span>
+        </div>
+        <div class="font-sm cl-grey">id：<%= user.id %></div>
+      </div>
+    </div>
+    <p class="event-title font-lg cl-drak-grey mt-10">企业账户余额：￥<span class="cl-red"><%= user.availableMoney / 100.0 %></span> | 个人账户余额：￥<span class="cl-red"><%= (user.earnedMoney - user.withdrawMoney)/100.0 %></span></p>
+  </a>
+</div>

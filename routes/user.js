@@ -1,8 +1,5 @@
 var router = require('express').Router();
 var AV = require('../av.js');
-var request = require('request');
-var fs = require('fs');
-var wechatUtils = require('../wechat-utils.js');
 var utils = require('../utils.js');
 var _ = require('underscore');
 

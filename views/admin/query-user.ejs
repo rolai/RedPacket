@@ -1,0 +1,22 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<% include ../partials/header %>
+<title>微信红包</title>
+</head>
+<body>
+  <section class="hp-top-box">
+    <div>
+      <p class="hp-header-title font-numlg cl-white">用户查询</p>
+    </div>
+  </section>
+  <section class="container mt-30">
+    <form method="post" action="/admin/query-user">
+      <div class="inp-bg">
+        <input name="username" placeholder="用户昵称"></input>
+      </div>
+      <input class="submit-btn" type="submit" value="查询">
+    </form>
+  </section>
+</body>
+</html>

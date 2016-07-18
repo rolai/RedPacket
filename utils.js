@@ -60,6 +60,7 @@ var utils = {
             withdrawMoney: user.get('withdrawMoney'),
             paidMoney: user.get('paidMoney'),
             availableMoney: user.get('availableMoney'),
+            createdAt: user.getCreatedAt().format("yyyy/MM/dd"),
         };
 
         return obj;
@@ -466,6 +467,14 @@ var utils = {
         });
     },
 
+    charge: function(user, userId, money) {
+      var result = {
+        result: true;
+      };
+
+      // TODO charge
+      return AV.Promise.as(result);
+    }
 };
 
 module.exports = utils;

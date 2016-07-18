@@ -11,6 +11,8 @@ var wechat = require('./routes/wechat');
 var rootRoutes = require('./routes/root');
 var userRoutes = require('./routes/user');
 var redPacket = require('./routes/red-packet');
+var adminRoutes = require('./routes/admin');
+var constants = require('./constants');
 
 var app = express();
 
@@ -43,7 +45,7 @@ app.use(cookieParser());
 
 // ask for login
 app.use(function(req, res, next) {
-    if (req.originalUrl == '/user/login' || req.originalUrl.startWith('/wechat') || req.currentUser) {
+    if (req.originalUrl == '/user/login' || req.originalUrl == '/admin/login' || req.originalUrl.startWith('/wechat') || req.currentUser) {
         next();
     } else {
         // console.log("url: %j", req.originalUrl);
@@ -60,6 +62,18 @@ app.use(function(req, res, next) {
         res.redirect(wechatUtils.getAuthorizeURL('me'));
     }
 });
+
+// ask for admin rights
+app.use(function(req, res, next) {
+    if (req.originalUrl != '/admin/login'
+      && req.originalUrl.startWith('/admin')
+      && req.currentUser.get('role') != constants.ROLE.ADMIN) {
+        res.redirect('/admin/login');
+    } else {
+      next();
+    }
+});
+
 
 // weixin signature
 app.use(function(req, res, next) {
@@ -86,6 +100,7 @@ app.use('/', rootRoutes);
 app.use('/wechat', wechat);
 app.use('/rp', redPacket);
 app.use('/user', userRoutes);
+app.use('/admin', adminRoutes);
 
 
 app.use(function(req, res, next) {
