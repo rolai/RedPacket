@@ -5,7 +5,7 @@
 <title>红包</title>
 </head>
 <body class="bg-white">
-  <section class="event-container mb-60">
+  <section class="event-container">
     <div class="event-details">
       <div class="font-lg mt-10">【活动】<%= redPacket.title %></div>
       <div class="font-sm cl-yellow mt-5 pb-10 under-line">下架时间： <%= redPacket.invalidDate %></div>
@@ -21,6 +21,7 @@
     </div>
   </section>
 
+  <% include partials/footer %>
   <div class="nav">
     <div class="rp-bottom-btns">
       <a class="rp-bottom-btn rp-bottom-left-btn" href="/all-events">全部活动</a>

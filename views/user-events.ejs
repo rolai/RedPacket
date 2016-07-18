@@ -5,7 +5,7 @@
 <title>红包</title>
 </head>
 <body>
-  <section class="container mt-10 mb-60">
+  <section class="container mt-10">
     <% var admin = true; %>
     <% events.forEach(function(event) { %>
       <% include partials/event-card %>
@@ -27,6 +27,7 @@
     </div>
   </section>
 
+  <% include partials/footer %>
   <div class="nav">
     <div class="rp-bottom-btns">
       <a class="rp-bottom-btn rp-bottom-left-btn" href="/rp/create">发布活动</a>
