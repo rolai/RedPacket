@@ -7,7 +7,11 @@
 <body>
 <section class="container" id="rp-overview" style="display: <%= preview ? 'none' : 'block'%>">
   <div class="rp-container">
-    <img src="/public/images/red-packet.jpg">
+    <img class="rp-img" src="/public/images/red-packet.jpg">
+    <div class="rp-publisher-img-container">
+      <img class="rp-publisher-img" src="<%= redPacket.publisherAvatar %>" >
+    </div>
+    <div class="rp-title font-lg cl-white text-overflow"><%= redPacket.title %></div>
     <div class="open-rp-btn">拆开红包</div>
   </div>
 </section>

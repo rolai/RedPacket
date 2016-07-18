@@ -9,8 +9,8 @@ function getRedPacketIdFromUrl(url) {
 function resetRedPacketPosition() {
   var height = $(window).height();
   var redPacketHeight = $("#rp-overview").height();
-  var redPacketPositionY = (height - redPacketHeight) / 2 - 20;
-  $("#rp-overview").css('margin-top', redPacketPositionY + 'px');
+  var redPacketPositionY = (height - redPacketHeight) / 2;
+  $("#rp-overview").css('top', redPacketPositionY + 'px');
 }
 
 resetRedPacketPosition ();

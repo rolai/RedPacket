@@ -46,7 +46,9 @@ router.get('/oauth', function(req, res, next) {
                     console.log('signin successfully: nickname: %s, id: %s', loginedUser.get('nickname'), loginedUser.id);
                     res.saveCurrentUser(loginedUser); // 保存当前用户到 Cookie.
                     if (redPacketId.length > 0) {
-                        res.redirect('/rp/' + redPacketId);
+                        res.redirect('/rp/open/' + redPacketId);
+                    } else if(state == 'all-events'){
+                        res.redirect('/all-events');
                     } else {
                         res.redirect('/user/me');
                     }

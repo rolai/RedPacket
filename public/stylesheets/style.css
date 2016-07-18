@@ -320,13 +320,40 @@ a {
 
 /* 拆红包页 */
 
-.rp-container {
-    padding: 0 8%;
-    margin-top: 32px;
+#rp-overview {
+  position: absolute;
+  width: 100%;
+  margin: 0 auto;
 }
 
-.rp-container img {
+.rp-container {
+  width: 280px;
+  margin: 0 auto;
+  position:relative;
+}
+
+.rp-img {
     width: 100%;
+}
+
+.rp-publisher-img-container {
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 120px;
+  left: 100px;
+}
+
+.rp-publisher-img {
+    width: 100%;
+}
+
+.rp-title {
+  position: absolute;
+  top: 250px;
+  text-align: center;
+  padding: 0 10px;
+  width: 100%;
 }
 
 .open-rp-btn {

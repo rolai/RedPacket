@@ -53,6 +53,10 @@ app.use(function(req, res, next) {
             return res.redirect(wechatUtils.getAuthorizeURL('rp-' + result[1]));
         }
 
+        if(req.originalUrl.startWith('/all-events')) {
+          return res.redirect(wechatUtils.getAuthorizeURL('all-events'));
+        }
+
         res.redirect(wechatUtils.getAuthorizeURL('me'));
     }
 });
@@ -62,12 +66,12 @@ app.use(function(req, res, next) {
       if (req.method == 'GET' && req.originalUrl != '/user/login') {
           wechatUtils.getWechatTicket()
               .then(function(jsTicket) {
-                  console.log("jsTicket: %j", jsTicket);
+                  //console.log("jsTicket: %j", jsTicket);
                   // console.log(req.protocol);
                   var fullUrl = 'https://' + req.get('host') + req.originalUrl;
-                  console.log(fullUrl);
+                  //console.log(fullUrl);
                   var signature = wechatUtils.signTicket(jsTicket.ticket, fullUrl);
-                  console.log("url %s, signature: %j", fullUrl, signature);
+                  //console.log("url %s, signature: %j", fullUrl, signature);
                   req.signature = signature;
                   req.domain = req.get('host');
                   next();
