@@ -123,14 +123,14 @@ var utils = {
     },
 
     convertRedPacketToCashFlowSummary: function(redpacket) {
-      var obj = {
-          id: redpacket.id,
-          cash: redpacket.leftMoney - redpacket.totalMoney,
-          type: 0,
-          info: redpacket.title,
-          createdAt: redpacket.createdDate
-      };
-      return obj;
+        var obj = {
+            id: redpacket.id,
+            cash: redpacket.leftMoney - redpacket.totalMoney,
+            type: 0,
+            info: redpacket.title,
+            createdAt: redpacket.createdDate
+        };
+        return obj;
     },
 
     /*
@@ -321,7 +321,7 @@ var utils = {
     },
 
     paidForRedPacket: function(user, redPacket) {
-        var info = "发红包：" +  redPacket.get('title');
+        var info = "发红包：" + redPacket.get('title');
         return utils.addCashFlow(user, -totalMoney, constants.CASH_FLOW.SPEND, info, redPacket.id)
             .then(function() {
                 user.increment('availableMoney', -totalMoney);
@@ -369,7 +369,7 @@ var utils = {
     fetchActiveRedPacket: function(page, count) {
         page = page || 0;
         count = count || 20;
-        if(count > 100) count = 100;
+        if (count > 100) count = 100;
 
         var query = new AV.Query('RedPacket');
         query.include('creator');
@@ -393,14 +393,14 @@ var utils = {
             createdAt: cashFlow.getCreatedAt().format("yyyy/MM/dd")
         };
 
-        if(obj.type == constants.CASH_FLOW.WITHDRAW) obj.info = '提现至微信零钱';
+        if (obj.type == constants.CASH_FLOW.WITHDRAW) obj.info = '提现至微信零钱';
         return obj;
     },
 
     fetchUserCashFlow: function(user, page, count) {
         page = page || 0;
         count = count || 20;
-        if(count > 100) count = 100;
+        if (count > 100) count = 100;
         var oneMonthBefore = moment().subtract(1, 'months').toDate();
 
         var query = new AV.Query('CashFlow');
@@ -411,7 +411,7 @@ var utils = {
         query.skip(page * count);
         query.limit(count);
         return query.find()
-            .then(function(rows){
+            .then(function(rows) {
                 var cashFlows = _.map(rows, utils.cashFlowSummary);
                 return new AV.Promise.as(cashFlows);
             });
@@ -420,7 +420,7 @@ var utils = {
     fetchRedPacketCashFlow: function(redPacketId, page, count) {
         page = page || 0;
         count = count || 20;
-        if(count > 100) count = 100;
+        if (count > 100) count = 100;
 
         var query = new AV.Query('UserRedPacket');
         query.include('user');
@@ -429,51 +429,53 @@ var utils = {
         query.skip(page * count);
         query.limit(count);
         return query.find()
-            .then(function(rows){
-                var cashFlows = _.map(rows, function(row){
+            .then(function(rows) {
+                var cashFlows = _.map(rows, function(row) {
                     var obj = {
-                      cash: row.get('money'),
-                      createdAt: row.getCreatedAt().format("yyyy/MM/dd")
+                        cash: row.get('money'),
+                        createdAt: row.getCreatedAt().format("yyyy/MM/dd")
                     };
                     var userName = row.get('user').get('nickname');
                     obj.info = "*" + userName.substr(1) + "领取了红包";
                     return obj;
-                  });
+                });
                 return new AV.Promise.as(cashFlows);
-            }, function(err) {console.log(err);});
+            }, function(err) {
+                console.log(err);
+            });
     },
 
     updateRedPacketStatus: function(user, redPacketId, status) {
-      var result = {
-        result: false
-      };
-      var query = new AV.Query('RedPacket');
-      return query.get(redPacketId)
-        .then(function(redPacket) {
-          if (!redPacket) {
-              result.errorMessage = "没有找到活动记录，活动可能已经被删除";
-              return AV.Promise.as(result);
-          } else if (redPacket.get('creator').id != user.id && user.get('role') != constants.ROLE.ADMIN) {
-              result.errorMessage = "你没有权限修改本活动，请联系管理员";
-              return AV.Promise.as(result);
-          } else {
-            result.result = true;
-            redPacket.set('status', status);
-            return redPacket.save()
-              .then(function(){
-                return AV.Promise.as(result);
-              });
-          }
-        });
+        var result = {
+            result: false
+        };
+        var query = new AV.Query('RedPacket');
+        return query.get(redPacketId)
+            .then(function(redPacket) {
+                if (!redPacket) {
+                    result.errorMessage = "没有找到活动记录，活动可能已经被删除";
+                    return AV.Promise.as(result);
+                } else if (redPacket.get('creator').id != user.id && user.get('role') != constants.ROLE.ADMIN) {
+                    result.errorMessage = "你没有权限修改本活动，请联系管理员";
+                    return AV.Promise.as(result);
+                } else {
+                    result.result = true;
+                    redPacket.set('status', status);
+                    return redPacket.save()
+                        .then(function() {
+                            return AV.Promise.as(result);
+                        });
+                }
+            });
     },
 
     charge: function(user, userId, money) {
-      var result = {
-        result: true;
-      };
+        var result = {
+            result: true
+        };
 
-      // TODO charge
-      return AV.Promise.as(result);
+        // TODO charge
+        return AV.Promise.as(result);
     }
 };
 

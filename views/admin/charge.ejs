@@ -16,7 +16,7 @@
 
     <form method="post" action="/admin/charge/<%= user.id %>">
       <div class="inp-bg">
-        <input name="username" type="number" placeholder="请输入充值金额"></input>
+        <input name="money" type="number" pattern="[1-9][0-9]*" placeholder="请输入充值金额"></input>
       </div>
       <input class="submit-btn" type="submit" value="为<%=user.nickname%>充值">
     </form>

@@ -10,8 +10,16 @@
       <p class="hp-header-title font-numlg cl-white">充值结果</p>
     </div>
   </section>
-  <section class="container mt-30">
-    <p class="text-center font-xlg cl-red mt-10 mb-10"><%= message %></p>
+  <section class="container mt-20">
+    <p class="text-center font-xlg cl-red mb-10"><%= message %></p>
+    <% if(result) { %>
+      <p class="text-center font-md cl-grey mb-10">最新余额</p>
+      <% include ../partials/user-card %>
+    <% } %>
   </section>
+
+  <div class="nav">
+      <a class="crp-bottom-btn"  href="/admin/query-user">继续充值</a>
+  </div>
 </body>
 </html>
