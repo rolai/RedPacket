@@ -66,7 +66,7 @@ router.get('/charge/:userId', function(req, res, next) {
 });
 
 router.post('/charge/:userId', function(req, res, next) {
-    var money = parseInt(req.body.money);
+    var money = parseInt(req.body.money) * 100;
     if (money > 0) {
         var query = new AV.Query('_User');
         utils.charge(req.currentUser, req.params.userId, money)

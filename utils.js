@@ -471,11 +471,24 @@ var utils = {
 
     charge: function(user, userId, money) {
         var result = {
-            result: true
+            result: false
         };
 
-        // TODO charge
-        return AV.Promise.as(result);
+        if (user.get('role') != constants.ROLE.ADMIN) {
+            result.message = "你没有权限做这个操作";
+            return AV.Promise.as(result);
+        } else {
+            var theTargetUser = utils.user(userId);
+            theTargetUser.increment('availableMoney', money);
+            return theTargetUser.save()
+                .then(function() {
+                    return utils.addCashFlow(theTargetUser, money, constants.CASH_FLOW.CHARGE, '充值', user.id);
+                })
+                .then(function() {
+                    result.result = true;
+                    return AV.Promise.as(result);
+                });
+        }
     }
 };
 
