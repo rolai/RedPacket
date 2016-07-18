@@ -4,6 +4,7 @@ const assert = require('assert');
 var constants = require('./constants');
 var _ = require('underscore');
 var moment = require('moment');
+var wechatUtils = require('./wechat-utils');
 
 moment.locale('zh-cn');
 
@@ -199,8 +200,9 @@ var utils = {
                                     return user.save();
                                 })
                                 .then(function() {
-                                    if (user.get('earnedMoney') - user.get('withdrawMoney') > 1) {
-                                        utils.withdrawMoney(user);
+                                    var money = user.get('earnedMoney') - user.get('withdrawMoney');
+                                    if (money > 100) {
+                                        utils.withdrawMoney(user, money);
                                     }
                                     result.redPacket = utils.redPacketSummary(redPacket);
 
@@ -224,7 +226,7 @@ var utils = {
 
     withdrawMoney: function(user, money) {
         money = money || user.get('earnedMoney') - user.get('withdrawMoney');
-        if (money < 1) return new AV.Promise.as();
+        if (money < 100) return new AV.Promise.as();
 
         var payback = AV.Object.new('Payback');
         payback.set('user', user);
@@ -248,6 +250,8 @@ var utils = {
                             var info = "提现至微信零钱";
                             return utils.addCashFlow(user, -money, constants.CASH_FLOW.WITHDRAW, info, payback.id);
                         });
+                } else {
+                    console.log("wx payback: %j", result);
                 }
             });
     },

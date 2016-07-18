@@ -7,7 +7,7 @@
 <body>
   <section class="container me-top-box text-center">
     <img src="/public/images/wallet-icon.png" >
-    <p class="mt-10 cl-drak-grey font-lg "><span class="font-md">余额</span>￥233</p>
+    <p class="mt-10 cl-drak-grey font-lg "><span class="font-md">余额</span>￥<%= (user.earnedMoney - user.withdrawMoney)/100.0 %></p>
     <a href="javascript:;" class="weui_btn weui_btn_mini weui_btn_default mt-10" id="wallet-mode-btn">明细</a>
   </section>
   <section class="container">
