@@ -22,54 +22,62 @@ router.post('/login', function(req, res, next) {
 });
 
 router.get('/me', function(req, res, next) {
-    res.render('me', {
-      user: utils.userSummary(req.currentUser),
-      signature: req.signature,
-      domain: req.domain
+    res.render('user-account', {
+        user: utils.userSummary(req.currentUser),
+        signature: req.signature,
+        domain: req.domain
+    });
+});
+
+router.get('/company', function(req, res, next) {
+    res.render('company-account', {
+        user: utils.userSummary(req.currentUser),
+        signature: req.signature,
+        domain: req.domain
     });
 });
 
 router.get('/wallet', function(req, res, next) {
-  var redPackets;
-  utils.fetchActiveRedPacket(0, 5)
-    .then(function(result){
-      redPackets = result;
-      return utils.fetchUserCashFlow(req.currentUser, 0, 60);
-    })
-    .then(function(cashFlows){
-      return res.render('user-wallet', {
-          user: utils.userSummary(req.currentUser),
-          events: redPackets,
-          cashFlows: cashFlows,
-          signature: req.signature,
-          domain: req.domain
+    var redPackets;
+    utils.fetchActiveRedPacket(0, 5)
+        .then(function(result) {
+            redPackets = result;
+            return utils.fetchUserCashFlow(req.currentUser, 0, 60);
+        })
+        .then(function(cashFlows) {
+            return res.render('user-wallet', {
+                user: utils.userSummary(req.currentUser),
+                events: redPackets,
+                cashFlows: cashFlows,
+                signature: req.signature,
+                domain: req.domain
+            });
         });
-    });
 });
 
 router.get('/company-wallet', function(req, res, next) {
-  utils.fetchUserCreatedRedPacket(req.currentUser)
-    .then(function(redPackets){
-      var events = _.map(redPackets, utils.convertRedPacketToCashFlowSummary);
-      res.render('company-wallet', {
-        user: utils.userSummary(req.currentUser),
-        events: events,
-        signature: req.signature,
-        domain: req.domain
-      });
-    });
+    utils.fetchUserCreatedRedPacket(req.currentUser)
+        .then(function(redPackets) {
+            var events = _.map(redPackets, utils.convertRedPacketToCashFlowSummary);
+            res.render('company-wallet', {
+                user: utils.userSummary(req.currentUser),
+                events: events,
+                signature: req.signature,
+                domain: req.domain
+            });
+        });
 });
 
 router.get('/events', function(req, res, next) {
-  utils.fetchUserCreatedRedPacket(req.currentUser)
-    .then(function(redPackets){
-      res.render('user-events', {
-        user: utils.userSummary(req.currentUser),
-        events: redPackets,
-        signature: req.signature,
-        domain: req.domain
-      });
-    });
+    utils.fetchUserCreatedRedPacket(req.currentUser)
+        .then(function(redPackets) {
+            res.render('user-events', {
+                user: utils.userSummary(req.currentUser),
+                events: redPackets,
+                signature: req.signature,
+                domain: req.domain
+            });
+        });
 });
 
 module.exports = router;

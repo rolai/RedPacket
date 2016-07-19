@@ -6,6 +6,10 @@
 </head>
 <body>
   <section class="container mt-10">
+    <% if(events.length == 0) { %>
+      <div class="font-md cl-grey text-center mt-50">还未创建过活动</div>
+    <% } %>
+
     <% var admin = true; %>
     <% events.forEach(function(event) { %>
       <% include partials/event-card %>
@@ -30,8 +34,8 @@
   <% include partials/footer %>
   <div class="nav">
     <div class="rp-bottom-btns">
-      <a class="rp-bottom-btn rp-bottom-left-btn" href="/rp/create">发布活动</a>
-      <a class="rp-bottom-btn rp-bottom-right-btn" href="/user/me">我的账户</a>
+      <a class="rp-bottom-btn rp-bottom-left-btn" href="/rp/create">创建活动</a>
+      <a class="rp-bottom-btn rp-bottom-right-btn" href="/user/company">企业账户</a>
     </div>
   </div>
 </body>
