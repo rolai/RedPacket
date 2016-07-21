@@ -7,6 +7,7 @@
 <body class="bg-white">
   <section class="event-container">
     <div class="event-details">
+      <div class="event-price-tag bg-yellow" style="float:right;" data-id="<%= redPacket.id%>" data-status="<%= redPacket.status%>" id="rp-action-btn"><%= redPacket.status==3 ? '下架' : '删除'%></div>
       <div class="font-lg mt-10">【活动】<%= redPacket.title %></div>
       <div class="font-sm cl-yellow mt-5 pb-10 under-line">下架时间： <%= redPacket.invalidDate %></div>
       <div class="font-md mt-20">
@@ -32,4 +33,5 @@
 <script src="/public/js/zepto.min.js"></script>
 <% include partials/register-wechat-api %>
 <% include partials/hide-wechat-menu %>
+<script src="/public/js/red-packet-status.js"></script>
 </html>

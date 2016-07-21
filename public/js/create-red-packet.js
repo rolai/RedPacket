@@ -49,9 +49,10 @@ function redirect(path) {
     var targetUrl = url.substring(0, index) + path;
     window.location.href = targetUrl;
 }
+
 //调用微信JS api 支付
-function jsApiPay(order, signedOrder) {
-    console.log(order);
+function jsApiPay(redPacket, signedOrder, wxResponse) {
+    console.log(redPacket);
     WeixinJSBridge.invoke(
         'getBrandWCPayRequest',
         signedOrder,
@@ -61,6 +62,14 @@ function jsApiPay(order, signedOrder) {
             if (res.err_msg == "get_brand_wcpay_request:ok") {
                 // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
                 redirect("/user/events");
+            } else {
+                showMessageBox('出错', '创建红包失败: ' + json.errorMessage);
+                // 支付失败要删除之前创建过的红包，不然会重复创建。
+                $.post('/rp/delete', {
+                        redPacketId: redPacket.id
+                    },
+                    function(response) {}
+                );
             }
         }
     );
@@ -71,10 +80,10 @@ function createRedPacket(data, payIt) {
     $.post('/rp/update-or-create',
         data,
         function(response) {
-            var json = JSON.parse(response).result;
+            var json = JSON.parse(response);
             if (json.result === true) {
                 if (json.needPayMoney > 0) {
-                    payIt(json.redPacket, json.signedRedPacket);
+                    payIt(json.redPacket, json.signedOrder, json.wxResponse);
                 } else {
                     redirect("/user/events");
                 }

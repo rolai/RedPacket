@@ -5,13 +5,14 @@
 <title>红包</title>
 </head>
 <body>
-  <section class="container mt-10">
+  <section class="container mt-10" id="events-section-container">
     <% var admin = false %>
     <% events.forEach(function(event) { %>
       <% include partials/event-card %>
     <% }) %>
   </section>
-
+  <div class="text-center font-md cl-grey" id="load-more-btn" style="display:<%= events.length >= 10 ? 'block' : 'none' %>">加载更多</div>
+  
   <% include partials/footer %>
   
   <div class="nav">
@@ -24,4 +25,5 @@
 <script src="/public/js/zepto.min.js"></script>
 <% include partials/register-wechat-api %>
 <% include partials/setup-share %>
+<script src="/public/js/all-event.js"></script>
 </html>

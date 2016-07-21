@@ -9,13 +9,17 @@ var configs = require('../configs.json');
 var env = require('../choice.json').env;
 var constants = require('../constants');
 
-var defaultWechatConfig = configs.wechat;
-wxPayment.init({
-    appid: defaultWechatConfig.appId,
-    mch_id: defaultWechatConfig.mchId,
-    apiKey: defaultWechatConfig.apiKey, //微信商户平台API密钥
-    pfx: fs.readFileSync('./cert/apiclient_cert.p12') //微信商户平台证书
-});
+if (!global.wxPayment) {
+    var defaultWechatConfig = configs.wechat;
+    wxPayment.init({
+        appid: defaultWechatConfig.appId,
+        mch_id: defaultWechatConfig.mchId,
+        apiKey: defaultWechatConfig.apiKey, //微信商户平台API密钥
+        pfx: fs.readFileSync('./cert/apiclient_cert.p12') //微信商户平台证书
+    });
+    global.wxPayment = wxPayment;
+}
+
 
 router.get('/', function(req, res, next) {
     var data = {
@@ -47,7 +51,7 @@ router.get('/oauth', function(req, res, next) {
                     res.saveCurrentUser(loginedUser); // 保存当前用户到 Cookie.
                     if (redPacketId.length > 0) {
                         res.redirect('/rp/open/' + redPacketId);
-                    } else if(state == 'all-events'){
+                    } else if (state == 'all-events') {
                         res.redirect('/all-events');
                     } else {
                         res.redirect('/user/me');
@@ -62,5 +66,53 @@ router.get('/oauth', function(req, res, next) {
             res.json(err);
         });
 });
+
+
+// 微信支付结果异步通知 api
+router.use('/wxpay', global.wxPayment.wxCallback(function(msg, req, res, next) {
+    var data = req.wxmessage;
+    if (data.return_code == 'SUCCESS' && data.result_code == 'SUCCESS') {
+        console.log("Paid: " + data.out_trade_no);
+        console.log("%j", data);
+        var redPacketId = utils.decodeOrderId(data.out_trade_no);
+        var query = new AV.Query('RedPacket');
+        query.include('creator');
+        query.get(redPacketId)
+            .then(function(redPacket) {
+                if (redPacket) {
+
+                    if (redPacket.get('status') != constants.RED_PACKET_STATUS.NEW) {
+                        console.log("Red Packet already paid: " + data.out_trade_no);
+                        return res.success();
+                    }
+
+                    console.log("Pay Red Packet: ", data.out_trade_no);
+                    var paidFee = parseInt(data.total_fee);
+                    var creator = redPacket.get('creator');
+                    return utils.payForRedPacketByWechat(creator, redPacket, paidFee, data)
+                        .then(function() {
+                            var leftMoney = redPacket.get('totalMoney') - paidFee;
+                            if (leftMoney > 0) {
+                                return utils.payForRedPacketByLeftMoney(creator, redPacket, leftMoney);
+                            }
+                        })
+                        .then(function() {
+                            redPacket.set('status', constants.RED_PACKET_STATUS.RUNNING);
+                            return redPacket.save();
+                        })
+                        .then(function() {
+                            res.success();
+                        }, function(err) {
+                            console.log(err);
+                        });
+                } else {
+                    console.log("Red Packet not found: " + data.out_trade_no);
+                    res.fail();
+                }
+            });
+    } else {
+        res.fail();
+    }
+}));
 
 module.exports = router;

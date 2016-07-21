@@ -2,7 +2,6 @@ var configs = require('./configs.json');
 var AV = require('./av.js');
 var utils = require('./utils.js');
 var crypto = require('crypto');
-var myip = require('quick-local-ip');
 var env = require('./choice.json').env;
 var defaultWechatConfig = configs.wechat;
 
@@ -78,7 +77,7 @@ var wechatUtils = {
     },
 
     getWechatTicket: function(wechatConfig) {
-        console.log('getWechatTicket');
+        //console.log('getWechatTicket');
         wechatConfig = wechatConfig || defaultWechatConfig;
         var timestamp = parseInt(new Date().getTime() / 1000);
         if (global.ticket && timestamp < global.ticket.timestamp + global.ticket.expires_in) {
@@ -97,13 +96,17 @@ var wechatUtils = {
                     ACCESS_TOKEN: response.access_token
                 });
                 return utils.requestToJSONAsPromise(url);
-            }, function(err){console.log(err);})
+            }, function(err) {
+                console.log(err);
+            })
             .then(function(response) {
                 global.ticket = response;
                 global.ticket.timestamp = parseInt(new Date().getTime() / 1000);
                 console.log('js ticket: ' + JSON.stringify(global.ticket));
                 return AV.Promise.as(global.ticket);
-            }, function(err){console.log(err);});
+            }, function(err) {
+                console.log(err);
+            });
     },
 
     getMediaUrl: function(mediaId) {
@@ -153,21 +156,6 @@ var wechatUtils = {
         // console.log("sign: " + string);
         // console.log("signature: " + ticket.signature);
         return ticket;
-    },
-
-    wxPayback: function(orderId, openid, fee) {
-        return new AV.Promise(function(resolve, reject) {
-            wxPayment.transfers({
-                partner_trade_no: orderId, //商户订单号，需保持唯一性
-                openid: openid,
-                check_name: 'NO_CHECK',
-                amount: fee,
-                desc: '红包',
-                spbill_create_ip: myip.getLocalIP4()
-            }, function(err, result) {
-                resolve(result);
-            });
-        });
     },
 };
 

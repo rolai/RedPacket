@@ -13,6 +13,7 @@ var userRoutes = require('./routes/user');
 var redPacket = require('./routes/red-packet');
 var adminRoutes = require('./routes/admin');
 var constants = require('./constants');
+var cloud = require('./cloud');
 
 var app = express();
 
@@ -31,8 +32,8 @@ app.use('/public', express.static(path.join(__dirname, 'public')));
 // 设置默认超时时间
 app.use(timeout('60s'));
 
-// 加载云函数定义
-require('./cloud');
+// 加载云代码方法
+app.use(cloud);
 // 加载云引擎中间件
 app.use(AV.express());
 
@@ -55,8 +56,8 @@ app.use(function(req, res, next) {
             return res.redirect(wechatUtils.getAuthorizeURL('rp-' + result[1]));
         }
 
-        if(req.originalUrl.startWith('/all-events')) {
-          return res.redirect(wechatUtils.getAuthorizeURL('all-events'));
+        if (req.originalUrl.startWith('/all-events')) {
+            return res.redirect(wechatUtils.getAuthorizeURL('all-events'));
         }
 
         res.redirect(wechatUtils.getAuthorizeURL('me'));
@@ -65,34 +66,32 @@ app.use(function(req, res, next) {
 
 // ask for admin rights
 app.use(function(req, res, next) {
-    if (req.originalUrl != '/admin/login'
-      && req.originalUrl.startWith('/admin')
-      && req.currentUser.get('role') != constants.ROLE.ADMIN) {
+    if (req.originalUrl != '/admin/login' && req.originalUrl.startWith('/admin') && req.currentUser.get('role') != constants.ROLE.ADMIN) {
         res.redirect('/admin/login');
     } else {
-      next();
+        next();
     }
 });
 
 
 // weixin signature
 app.use(function(req, res, next) {
-      if (req.method == 'GET' && req.originalUrl != '/user/login') {
-          wechatUtils.getWechatTicket()
-              .then(function(jsTicket) {
-                  //console.log("jsTicket: %j", jsTicket);
-                  // console.log(req.protocol);
-                  var fullUrl = 'https://' + req.get('host') + req.originalUrl;
-                  //console.log(fullUrl);
-                  var signature = wechatUtils.signTicket(jsTicket.ticket, fullUrl);
-                  //console.log("url %s, signature: %j", fullUrl, signature);
-                  req.signature = signature;
-                  req.domain = req.get('host');
-                  next();
-              });
-      } else {
-          next();
-      }
+    if (req.method == 'GET' && req.originalUrl != '/user/login') {
+        wechatUtils.getWechatTicket()
+            .then(function(jsTicket) {
+                //console.log("jsTicket: %j", jsTicket);
+                // console.log(req.protocol);
+                var fullUrl = 'https://' + req.get('host') + req.originalUrl;
+                //console.log(fullUrl);
+                var signature = wechatUtils.signTicket(jsTicket.ticket, fullUrl);
+                //console.log("url %s, signature: %j", fullUrl, signature);
+                req.signature = signature;
+                req.domain = req.get('host');
+                next();
+            });
+    } else {
+        next();
+    }
 });
 
 // 可以将一类的路由单独保存在一个文件中

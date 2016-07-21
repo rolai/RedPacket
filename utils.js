@@ -4,7 +4,7 @@ const assert = require('assert');
 var constants = require('./constants');
 var _ = require('underscore');
 var moment = require('moment');
-var wechatUtils = require('./wechat-utils');
+var myip = require('quick-local-ip');
 
 moment.locale('zh-cn');
 
@@ -228,16 +228,17 @@ var utils = {
         money = money || user.get('earnedMoney') - user.get('withdrawMoney');
         if (money < 100) return new AV.Promise.as();
 
+        console.log("用户%s，提现：%s", user.id, money);
         var payback = AV.Object.new('Payback');
         payback.set('user', user);
         payback.set('money', money);
         return payback.save()
             .then(function() {
-                return wechatUtils.wxPayback(payback.id, user.get('openid'), money);
+                return utils.wxPayback(payback.id, user.get('openid'), money);
             })
             .then(function(result) {
                 if (result.return_code == 'SUCCESS' && result.result_code == 'SUCCESS') {
-                    console.log("Auto pay back user : " + user.id + ', money : ' + fee);
+                    console.log("Auto pay back user : " + user.id + ', money : ' + money);
 
                     user.increment('withdrawMoney', money);
                     return user.save()
@@ -253,16 +254,22 @@ var utils = {
                 } else {
                     console.log("wx payback: %j", result);
                 }
+            }, function(error) {
+                console.log(error);
+            })
+            .catch(function(error) {
+                console.log(error);
             });
     },
 
-    addCashFlow: function(user, cash, type, info, recordId) {
+    addCashFlow: function(user, cash, type, info, recordId, wxReturnInfo) {
         var flow = AV.Object.new('CashFlow');
         flow.set('user', user);
         flow.set('cash', cash);
         flow.set('type', type);
         flow.set('info', info);
         flow.set('recordId', recordId);
+        if (wxReturnInfo) flow.set('wxReturnInfo', wxReturnInfo);
 
         return flow.save();
     },
@@ -280,6 +287,7 @@ var utils = {
             promise = query.get(data.redPacketId);
         } else {
             var rp = new AV.Object('RedPacket');
+            rp.set('status', constants.RED_PACKET_STATUS.NEW);
             promise = AV.Promise.as(rp);
         }
 
@@ -301,7 +309,7 @@ var utils = {
                 redPacket.set('publisherPhoneNumber', data.publisherPhoneNumber);
                 redPacket.set('title', data.title);
                 redPacket.set('invalidDate', new Date(data.invalidDate + " 23:59:59"));
-                redPacket.set('status', constants.RED_PACKET_STATUS.NEW);
+                //redPacket.set('status', constants.RED_PACKET_STATUS.NEW);
                 return redPacket.save()
                     .then(function() {
                         result.redPacket = utils.redPacketSummary(redPacket);
@@ -341,6 +349,7 @@ var utils = {
         query.equalTo('creator', user);
         query.containedIn('status', constants.RED_PACKET_USER_VIEWABLE);
         query.greaterThan('createdAt', oneMonthBefore);
+        query.descending('createdAt');
         return query.find()
             .then(function(rows) {
                 var redPackets = _.map(rows, utils.redPacketSummary);
@@ -353,6 +362,7 @@ var utils = {
     fetchUserOpenedRedPacket: function(user) {
         var query = new AV.Query('UserRedPacket');
         query.equalTo('user', user);
+        query.descending('createdAt');
         return query.find()
             .then(function(rows) {
                 var redPacketIds = _.map(rows, function(row) {
@@ -458,18 +468,20 @@ var utils = {
             .then(function(redPacket) {
                 if (!redPacket) {
                     result.errorMessage = "没有找到活动记录，活动可能已经被删除";
-                    return AV.Promise.as(result);
                 } else if (redPacket.get('creator').id != user.id && user.get('role') != constants.ROLE.ADMIN) {
                     result.errorMessage = "你没有权限修改本活动，请联系管理员";
-                    return AV.Promise.as(result);
                 } else {
                     result.result = true;
-                    redPacket.set('status', status);
-                    return redPacket.save()
-                        .then(function() {
-                            return AV.Promise.as(result);
-                        });
+                    if (status == constants.RED_PACKET_STATUS.CLOSED) {
+                        return utils.closeRedPacket(user, redpacket);
+                    } else {
+                        redPacket.set('status', status);
+                        return redPacket.save();
+                    }
                 }
+            })
+            .then(function() {
+                return AV.Promise.as(result);
             });
     },
 
@@ -493,7 +505,62 @@ var utils = {
                     return AV.Promise.as(result);
                 });
         }
-    }
+    },
+
+    payForRedPacketByLeftMoney: function(user, redPacket, money) {
+        return utils.addCashFlow(user, money, constants.CASH_FLOW.SPEND, '余额支付创建活动', redPacket.id)
+            .then(function() {
+                user.increment('availableMoney', -money);
+                return user.save();
+            });
+    },
+
+    payForRedPacketByWechat: function(user, redPacket, money, wxReturnInfo) {
+        return utils.addCashFlow(user, money, constants.CASH_FLOW.SPEND, '微信支付创建活动', redPacket.id, wxReturnInfo);
+    },
+
+    closeRedPacket: function(user, redPacket) {
+        if (redPacket.get('status') == constants.RED_PACKET_STATUS.RUNNING || redPacket.get('status') == constants.RED_PACKET_STATUS.PAID) {
+            var leftMoney = redPacket.get('leftMoney');
+            redPacket.set('status', constants.RED_PACKET_STATUS.CLOSED);
+            return redPacket.save()
+                .then(function() {
+                    return utils.addCashFlow(user, leftMoney, constants.CASH_FLOW.PAYBACK, '红包余额退款', redPacket.id);
+                })
+                .then(function() {
+                    user.increment('availableMoney', leftMoney);
+                    return user.sava();
+                });
+        }
+    },
+
+    encodeOrderId: function(orderId) {
+        var randomStr = Math.random().toString(36).substr(2, 6);
+        return orderId + '-' + randomStr;
+    },
+
+    decodeOrderId: function(orderId) {
+        var index = orderId.indexOf('-');
+        return index >= 0 ? orderId.substr(0, index) : orderId;
+    },
+
+    wxPayback: function(orderId, openid, fee) {
+        return new AV.Promise(function(resolve, reject) {
+            global.wxPayment.transfers({
+                partner_trade_no: orderId, //商户订单号，需保持唯一性
+                openid: openid,
+                check_name: 'NO_CHECK',
+                amount: fee,
+                desc: '红包',
+                spbill_create_ip: myip.getLocalIP4()
+            }, function(err, result) {
+                console.log(err);
+                console.log(result);
+                resolve(result);
+            });
+        });
+    },
+
 };
 
 module.exports = utils;
