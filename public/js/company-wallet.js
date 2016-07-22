@@ -1,20 +1,3 @@
-var walletMode = 1; // 1 active event list; 2 show cash flow
-
-$('#wallet-mode-btn').on('click', function(e) {
-    if (walletMode == 1) {
-        walletMode = 2;
-        $('#wallet-mode-btn').text('活动');
-        $('#activeEventList').hide();
-        $('#cashFlowList').show();
-    } else {
-        walletMode = 1;
-        $('#wallet-mode-btn').text('明细');
-        $('#activeEventList').show();
-        $('#cashFlowList').hide();
-    }
-});
-
-
 var page = 1;
 var pageSize = 10;
 
@@ -30,11 +13,11 @@ function addCashFlowItem(item) {
         .replace("<%=item.createdAt%>", item.createdAt)
         .replace("<%=item.cash%>", item.cash / 100.0);
 
-    $('#cashFlowListInner').append(html);
+    $('#event-container').append(html);
 }
 
 $('#load-more-btn').on('click', function(e) {
-    $.post('/user/cash-flow', {
+    $.post('/user/company-cash-flow', {
             page: page
         },
         function(response) {

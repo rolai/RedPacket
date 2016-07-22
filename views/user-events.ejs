@@ -10,10 +10,14 @@
       <div class="font-md cl-grey text-center mt-50">还未创建过活动</div>
     <% } %>
 
-    <% var admin = true; %>
-    <% events.forEach(function(event) { %>
-      <% include partials/event-card %>
-    <% }) %>
+    <div id="events-container">
+      <% var admin = true; %>
+      <% events.forEach(function(event) { %>
+        <% include partials/event-card %>
+      <% }) %>
+    </div>
+    <div class="text-center font-md cl-grey" id="load-more-btn" style="display:<%= events.length >= 2 ? 'block' : 'none' %>">加载更多</div>
+  
 
     <div id="actionSheet_wrap">
        <div class="weui_mask_transition" id="mask"></div>

@@ -19,11 +19,14 @@
       <a class="text-center cl-drak-grey mt-10" style="display:block" href="/all-events">更多任务，更多赏金</a>
     </div>
     <div id="cashFlowList" class="bg-white" style="padding: 20px; display:none">
-      <% cashFlows.forEach(function(item) { %>
-        <% include partials/cash-flow %>
-      <% }) %>
-      <div class="text-center cl-grey mt-30 font-sm">仅可查询近1月记录</div>
+      <div id="cashFlowListInner">
+        <% cashFlows.forEach(function(item) { %>
+          <% include partials/cash-flow %>
+        <% }) %>
+      </div>
+      <div class="text-center font-md cl-grey mt-10" id="load-more-btn" style="display:<%= cashFlows.length >= 10 ? 'block' : 'none' %>">加载更多</div>
     </div>
+    
   </section>
   <% include partials/footer %>
 

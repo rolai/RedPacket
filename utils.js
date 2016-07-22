@@ -342,7 +342,11 @@ var utils = {
             });
     },
 
-    fetchUserCreatedRedPacket: function(user) {
+    fetchUserCreatedRedPacket: function(user, page, count) {
+        page = page || 0;
+        count = count || 20;
+        if (count > 100) count = 100;
+
         var oneMonthBefore = moment().subtract(1, 'months').toDate();
         var query = new AV.Query('RedPacket');
         query.include('creator');
@@ -350,6 +354,8 @@ var utils = {
         query.containedIn('status', constants.RED_PACKET_USER_VIEWABLE);
         query.greaterThan('createdAt', oneMonthBefore);
         query.descending('createdAt');
+        query.skip(page * count);
+        query.limit(count);
         return query.find()
             .then(function(rows) {
                 var redPackets = _.map(rows, utils.redPacketSummary);

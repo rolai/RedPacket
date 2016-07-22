@@ -3,6 +3,7 @@ var AV = require('../av.js');
 var utils = require('../utils.js');
 var _ = require('underscore');
 
+var pageSize = 10;
 // 渲染登录页面
 router.get('/login', function(req, res, next) {
     res.render('login.ejs');
@@ -42,7 +43,7 @@ router.get('/wallet', function(req, res, next) {
     utils.fetchActiveRedPacket(0, 5)
         .then(function(result) {
             redPackets = result;
-            return utils.fetchUserCashFlow(req.currentUser, 0, 60);
+            return utils.fetchUserCashFlow(req.currentUser, 0, pageSize);
         })
         .then(function(cashFlows) {
             return res.render('user-wallet', {
@@ -55,8 +56,20 @@ router.get('/wallet', function(req, res, next) {
         });
 });
 
+router.post('/cash-flow', function(req, res, next) {
+    var data = req.body;
+    var page = parseInt(data.page);
+
+    utils.fetchUserCashFlow(req.currentUser, page, pageSize)
+        .then(function(cashFlows) {
+            res.json({
+                cashFlows: cashFlows
+            });
+        });
+});
+
 router.get('/company-wallet', function(req, res, next) {
-    utils.fetchUserCreatedRedPacket(req.currentUser)
+    utils.fetchUserCreatedRedPacket(req.currentUser, 0, pageSize)
         .then(function(redPackets) {
             var events = _.map(redPackets, utils.convertRedPacketToCashFlowSummary);
             res.render('company-wallet', {
@@ -68,14 +81,39 @@ router.get('/company-wallet', function(req, res, next) {
         });
 });
 
+router.post('/company-cash-flow', function(req, res, next) {
+    var data = req.body;
+    var page = parseInt(data.page);
+
+    utils.fetchUserCreatedRedPacket(req.currentUser, page, pageSize)
+        .then(function(redPackets) {
+            var cashFlows = _.map(redPackets, utils.convertRedPacketToCashFlowSummary);
+            res.json({
+                cashFlows: cashFlows
+            });
+        });
+});
+
 router.get('/events', function(req, res, next) {
-    utils.fetchUserCreatedRedPacket(req.currentUser)
+    utils.fetchUserCreatedRedPacket(req.currentUser, 0, pageSize)
         .then(function(redPackets) {
             res.render('user-events', {
                 user: utils.userSummary(req.currentUser),
                 events: redPackets,
                 signature: req.signature,
                 domain: req.domain
+            });
+        });
+});
+
+router.post('/events', function(req, res, next) {
+    var data = req.body;
+    var page = parseInt(data.page);
+
+    utils.fetchUserCreatedRedPacket(req.currentUser, page, pageSize)
+        .then(function(events) {
+            res.json({
+                events: events
             });
         });
 });
